@@ -1,17 +1,18 @@
 <?php
 
-namespace Domain\Users\Models;
+namespace Domain\Orders\Models;
 
+use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class StaffMember extends Model
+class Order extends Model
 {
     use HasFactory;
 
-    public function user(): BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Company::class);
     }
 }
