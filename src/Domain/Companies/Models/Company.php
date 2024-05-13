@@ -7,11 +7,11 @@ use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Statuses\Models\Status;
 use Domain\Subscriptions\Models\Subscription;
+use Domain\Warehouses\Models\StorageLocation;
 use Domain\Warehouses\Models\Warehouse;
-use Domain\Workstations\Models\Workstation;
+use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -52,5 +52,10 @@ class Company extends Model
     public function statuses(): HasMany
     {
         return $this->hasMany(Status::class);
+    }
+
+    public function storageLocations(): HasMany
+    {
+        return $this->hasMany(StorageLocation::class);
     }
 }
