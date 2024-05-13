@@ -1,0 +1,23 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Barcode Scanning API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": ":server_url/api/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "definitions": {
+    "$ref": "./V1/definitions/_index.yml"
+  }
+}

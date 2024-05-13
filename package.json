@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "doc": "redocly bundle openapi-src/v1.yml --output documentation/v1.json --dereferenced"
     },
     "devDependencies": {
         "@redocly/cli": "^1.12.2",
