@@ -1,13 +1,13 @@
 <?php
 
-namespace Domain\Warehouses\Models;
+namespace Domain\Codes\Models;
 
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Warehouse extends Model
+class Code extends Model
 {
     use HasFactory;
 
