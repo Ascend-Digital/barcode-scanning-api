@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Workstations\Models;
+namespace Domain\Warehouses\Models;
 
 use Domain\Companies\Models\Company;
 use Domain\Processes\Models\Process;
