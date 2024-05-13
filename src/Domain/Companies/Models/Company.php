@@ -2,8 +2,10 @@
 
 namespace Domain\Companies\Models;
 
+use Domain\Items\Models\Item;
 use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
+use Domain\Statuses\Models\Status;
 use Domain\Subscriptions\Models\Subscription;
 use Domain\Warehouses\Models\Warehouse;
 use Domain\Workstations\Models\Workstation;
@@ -37,8 +39,18 @@ class Company extends Model
         return $this->belongsToMany(Subscription::class);
     }
 
-    public function processes()
+    public function processes(): HasMany
     {
         return $this->hasMany(Process::class);
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function statuses(): HasMany
+    {
+        return $this->hasMany(Status::class);
     }
 }

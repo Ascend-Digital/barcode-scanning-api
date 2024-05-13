@@ -3,9 +3,11 @@
 namespace Domain\Workstations\Models;
 
 use Domain\Companies\Models\Company;
+use Domain\Processes\Models\Process;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Workstation extends Model
 {
@@ -14,5 +16,10 @@ class Workstation extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function processes(): BelongsToMany
+    {
+        return $this->belongsToMany(Process::class);
     }
 }
