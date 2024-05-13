@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->foreignIdFor(Company::class);
+            $table->foreignIdFor(Company::class)->constrained()->cascadeOnUpdate()->cascadeOnUpdate();
             $table->morphs('owner');
             $table->timestamps();
         });
