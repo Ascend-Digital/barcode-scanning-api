@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Domain\Companies\Models\Company;
+use Domain\Items\Models\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ItemFactory extends Factory
 {
+    protected $model = Item::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +21,8 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'company_id' => Company::factory()
         ];
     }
 }
