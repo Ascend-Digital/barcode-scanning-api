@@ -21,4 +21,9 @@ class Warehouse extends Model
     {
         return $this->hasMany(StorageLocation::class);
     }
+
+    public function workstations()
+    {
+        return $this->hasMany(Workstation::class);
+    }
 }

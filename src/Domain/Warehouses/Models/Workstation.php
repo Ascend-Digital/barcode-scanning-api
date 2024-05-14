@@ -22,4 +22,9 @@ class Workstation extends Model
     {
         return $this->belongsToMany(Process::class);
     }
+
+    public function warehouse(): BelongsTo
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
 }
