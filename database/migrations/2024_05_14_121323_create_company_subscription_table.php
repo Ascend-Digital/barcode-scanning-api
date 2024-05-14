@@ -19,8 +19,6 @@ return new class extends Migration
             $table->foreignIdFor(Subscription::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamp('starts_at');
             $table->timestamp('ends_at');
-
-            $table->timestamps();
         });
     }
 

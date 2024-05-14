@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Process::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Workstation::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->timestamps();
         });
     }
 
