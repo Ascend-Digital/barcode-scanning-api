@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use Domain\Companies\Models\Company;
-use Domain\Warehouses\Models\StorageLocation;
 use Domain\Warehouses\Models\Warehouse;
-use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Seeder;
 
 class WarehouseSeeder extends Seeder
@@ -19,8 +17,8 @@ class WarehouseSeeder extends Seeder
 
         foreach ($companies as $company) {
             Warehouse::factory()
-                ->has(Workstation::factory())
-                ->has(StorageLocation::factory())
+                ->hasWorkstations()
+                ->hasStorageLocations()
                 ->recycle($company)
                 ->create();
         }

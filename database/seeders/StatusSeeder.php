@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Domain\Companies\Models\Company;
-use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Statuses\Models\Status;
 use Illuminate\Database\Seeder;
@@ -21,7 +20,7 @@ class StatusSeeder extends Seeder
             Status::factory()
                 ->has(Process::factory(), 'processesWithFromStatus')
                 ->has(Process::factory(), 'processesWithToStatus')
-                ->has(Order::factory())
+                ->hasOrders()
                 ->recycle($company)
                 ->create();
         }
