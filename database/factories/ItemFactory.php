@@ -22,7 +22,7 @@ class ItemFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'company_id' => Company::factory()
+            'company_id' => Company::factory(),
         ];
     }
 }

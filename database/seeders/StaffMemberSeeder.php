@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Domain\Users\Models\StaffMember;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class StaffMemberSeeder extends Seeder
