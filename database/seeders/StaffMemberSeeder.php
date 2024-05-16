@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Domain\Users\Models\StaffMember;
 use Illuminate\Database\Seeder;
 
 class StaffMemberSeeder extends Seeder
@@ -12,6 +12,6 @@ class StaffMemberSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        StaffMember::factory(10)->create();
     }
 }
