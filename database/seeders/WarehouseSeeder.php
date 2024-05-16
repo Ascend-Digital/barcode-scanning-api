@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Domain\Companies\Models\Company;
+use Domain\Warehouses\Models\Warehouse;
 use Illuminate\Database\Seeder;
 
 class WarehouseSeeder extends Seeder
@@ -12,6 +13,14 @@ class WarehouseSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $companies = Company::all();
+
+        foreach ($companies as $company) {
+            Warehouse::factory()
+                ->hasWorkstations()
+                ->hasStorageLocations()
+                ->recycle($company)
+                ->create();
+        }
     }
 }

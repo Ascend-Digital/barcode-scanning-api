@@ -3,15 +3,13 @@
 namespace Database\Factories;
 
 use Domain\Companies\Models\Company;
+use Domain\Warehouses\Models\StorageLocation;
 use Domain\Warehouses\Models\Warehouse;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Domain\Warehouses\Models\Warehouse>
- */
-class WarehouseFactory extends Factory
+class StorageLocationFactory extends Factory
 {
-    protected $model = Warehouse::class;
+    protected $model = StorageLocation::class;
 
     /**
      * Define the model's default state.
@@ -23,6 +21,7 @@ class WarehouseFactory extends Factory
         return [
             'name' => fake()->name(),
             'company_id' => Company::factory(),
+            'warehouse_id' => Warehouse::factory(),
         ];
     }
 }
