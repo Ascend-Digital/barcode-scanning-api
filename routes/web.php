@@ -13,11 +13,13 @@ Route::get('api/{version}/docs', function (string $version) {
     ]);
 });
 
-Route::get('api/docs/{version}/definition', function (string $version) {
+Route::get('api/{version}/docs/definition', function (string $version) {
     $filesystem = new Filesystem();
 
     $path = base_path('/documentation/'.$version.'.json');
     $contents = $filesystem->get($path);
+
+    $contents = str_replace(':server_url', env('APP_URL'), $contents);
 
     return response($contents)->header('Content-Type', 'application/json');
 })->name('docs.definition');
