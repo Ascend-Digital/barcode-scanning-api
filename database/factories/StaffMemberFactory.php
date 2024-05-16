@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Domain\Users\Models\StaffMember;
+use Domain\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class StaffMemberFactory extends Factory
 {
+    protected $model = StaffMember::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +21,7 @@ class StaffMemberFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
         ];
     }
 }
