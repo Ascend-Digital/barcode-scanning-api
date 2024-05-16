@@ -1,13 +1,13 @@
 openapi: 3.1.0
 info:
-  title: Barcode Scanning API
+  title: Barcode Scanning Api
   version: '1.0'
 servers:
   - url: :server_url/api/v1
 definitions:
   $ref: './V1/definitions/_index.yml'
-#paths:
-#  $ref: './V1/paths/_index.yml'
+paths:
+  $ref: './V1/paths/_index.yml'
 components:
   securitySchemes:
     BearerToken:

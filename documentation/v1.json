@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Barcode Scanning API",
+    "title": "Barcode Scanning Api",
     "version": "1.0"
   },
   "servers": [
@@ -9,11 +9,199 @@
       "url": ":server_url/api/v1"
     }
   ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Login using an email and password",
+        "operationId": "post-login",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "AccessToken": {
+                    "title": "AccessToken",
+                    "type": "object"
+                  },
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "integer"
+                    },
+                    "attributes": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "attributes": {
+                              "type": "object",
+                              "properties": {
+                                "token": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "type": "AccessToken",
+                  "attributes": {
+                    "token": "4|eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "JSONResponse",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "code": "INVALID_LOGIN",
+                  "message": "Invalid Login"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "device_name": {
+                  "type": "string"
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "email": [
+                      "hello@example.com"
+                    ],
+                    "password": [
+                      "Password123!"
+                    ],
+                    "device_name": [
+                      "Google Pixel 6 Pro"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Authentication"
+        ]
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "BearerToken": {
         "type": "http",
         "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "device_name": {
+          "type": "string"
+        }
+      },
+      "AccessToken": {
+        "AccessToken": {
+          "title": "AccessToken",
+          "type": "object"
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "integer"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "properties": {
+                      "token": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "JSONResponse": {
+        "title": "JSONResponse",
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        }
       }
     }
   },
