@@ -12,6 +12,12 @@ class Code extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'company_id',
+        'name',
+        'code',
+    ];
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
