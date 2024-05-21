@@ -1,0 +1,6 @@
+JSONResponse:
+  $ref: './JSONResponse.yml'
+AccessToken:
+  $ref: './AccessToken.yml'
+Login:
+  $ref: './Login.yml'

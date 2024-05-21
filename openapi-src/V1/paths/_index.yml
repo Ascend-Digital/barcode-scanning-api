@@ -1,0 +1,3 @@
+'/auth/login':
+  post:
+    $ref: './Auth/post-login.yml'

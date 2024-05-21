@@ -1,0 +1,36 @@
+summary: Login using an email and password
+operationId: post-login
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          '$ref': '../../definitions/_index.yml#/AccessToken'
+        example:
+          '$ref': '../../examples/_index.yml#/AccessToken'
+  '422':
+    description: Unprocessable Entity (WebDAV)
+    content:
+      application/json:
+        schema:
+          "$ref": '../../definitions/_index.yml#/JSONResponse'
+        example:
+          code: INVALID_LOGIN
+          message: Invalid Login
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: '../../definitions/_index.yml#/Login'
+      examples:
+        Example 1:
+          value:
+            email:
+              - "hello@example.com"
+            password:
+              - "Password123!"
+            device_name:
+              - "Google Pixel 6 Pro"
+tags:
+  - Authentication
