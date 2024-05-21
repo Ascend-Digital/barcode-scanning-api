@@ -7,6 +7,7 @@ use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Statuses\Models\Status;
 use Domain\Subscriptions\Models\Subscription;
+use Domain\Users\Models\StaffMember;
 use Domain\Warehouses\Models\StorageLocation;
 use Domain\Warehouses\Models\Warehouse;
 use Domain\Warehouses\Models\Workstation;
@@ -57,5 +58,10 @@ class Company extends Model
     public function storageLocations(): HasMany
     {
         return $this->hasMany(StorageLocation::class);
+    }
+
+    public function staffMembers(): HasMany
+    {
+        return $this->hasMany(StaffMember::class);
     }
 }

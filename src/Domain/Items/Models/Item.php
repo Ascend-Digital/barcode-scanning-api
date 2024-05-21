@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Item extends Model
 {
     use HasFactory;
-    use Scannable;
 
     protected $fillable = [
         'name',
