@@ -12,6 +12,6 @@ class StaffMemberSeeder extends Seeder
      */
     public function run(): void
     {
-        StaffMember::factory(10)->create();
+        StaffMember::factory(10)->createQuietly();
     }
 }

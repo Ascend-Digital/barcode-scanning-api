@@ -22,7 +22,7 @@ class StatusSeeder extends Seeder
                 ->has(Process::factory(), 'processesWithToStatus')
                 ->hasOrders()
                 ->recycle($company)
-                ->create();
+                ->createQuietly();
         }
     }
 }

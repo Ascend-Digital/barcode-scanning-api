@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Domain\Codes\Models\Code;
+use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CodeFactory extends Factory
 {
+    protected $model = Code::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +21,7 @@ class CodeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'company_id' => Company::factory(),
         ];
     }
 }
