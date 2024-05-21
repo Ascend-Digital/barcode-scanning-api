@@ -23,7 +23,7 @@ class StaffMemberFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'company_id' => Company::factory()
+            'company_id' => Company::factory(),
         ];
     }
 }
