@@ -2,6 +2,8 @@
 
 namespace Domain\Users\Models;
 
+use App\Shared\Traits\Scannable;
+use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,9 +30,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-class StaffMember extends Model
+class StaffMember extends Model implements ScannableModel
 {
     use HasFactory;
+    use Scannable;
 
     public function user(): BelongsTo
     {
@@ -40,5 +43,10 @@ class StaffMember extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function getCompanyId(): int
+    {
+        return $this->company_id;
     }
 }

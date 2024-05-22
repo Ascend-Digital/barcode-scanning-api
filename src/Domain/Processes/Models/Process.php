@@ -2,8 +2,10 @@
 
 namespace Domain\Processes\Models;
 
+use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
+use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
@@ -43,9 +45,10 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Eloquent
  */
-class Process extends Model
+class Process extends Model implements ScannableModel
 {
     use HasFactory;
+    use Scannable;
 
     public function company(): BelongsTo
     {
@@ -70,5 +73,10 @@ class Process extends Model
     public function toStatus()
     {
         return $this->belongsTo(Status::class, 'to_status');
+    }
+
+    public function getCompanyId(): int
+    {
+        return $this->company_id;
     }
 }

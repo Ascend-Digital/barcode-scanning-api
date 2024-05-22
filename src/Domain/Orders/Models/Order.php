@@ -2,8 +2,10 @@
 
 namespace Domain\Orders\Models;
 
+use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\OrderFactory;
+use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Domain\Statuses\Models\Status;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,9 +35,10 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Eloquent
  */
-class Order extends Model
+class Order extends Model implements ScannableModel
 {
     use HasFactory;
+    use Scannable;
 
     public function company(): BelongsTo
     {
@@ -45,5 +48,10 @@ class Order extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function getCompanyId(): int
+    {
+        return $this->company_id;
     }
 }

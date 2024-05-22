@@ -56,6 +56,6 @@ class Item extends Model implements ScannableModel
 
     public function getCompanyId(): int
     {
-        return $this->company->id;
+        return $this->company_id;
     }
 }
