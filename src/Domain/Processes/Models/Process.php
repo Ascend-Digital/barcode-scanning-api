@@ -2,14 +2,47 @@
 
 namespace Domain\Processes\Models;
 
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\ProcessFactory;
 use Domain\Companies\Models\Company;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property int $company_id
+ * @property int $from_status
+ * @property int $to_status
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Company $company
+ * @property-read Status $fromStatus
+ * @property-read Status $toStatus
+ * @property-read Collection<int, Workstation> $workstations
+ * @property-read int|null $workstations_count
+ *
+ * @method static ProcessFactory factory($count = null, $state = [])
+ * @method static Builder|Process newModelQuery()
+ * @method static Builder|Process newQuery()
+ * @method static Builder|Process query()
+ * @method static Builder|Process whereCompanyId($value)
+ * @method static Builder|Process whereCreatedAt($value)
+ * @method static Builder|Process whereFromStatus($value)
+ * @method static Builder|Process whereId($value)
+ * @method static Builder|Process whereName($value)
+ * @method static Builder|Process whereToStatus($value)
+ * @method static Builder|Process whereUpdatedAt($value)
+ *
+ * @mixin Eloquent
+ */
 class Process extends Model
 {
     use HasFactory;
