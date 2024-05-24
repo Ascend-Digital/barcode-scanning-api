@@ -2,6 +2,7 @@
 
 namespace Domain\Warehouses\Models;
 
+use App\Api\V1\Warehouses\Resources\WorkstationResource;
 use App\Shared\Traits\Scannable;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Support\Contracts\ResourcableModel;
 
 /**
  * @property int $id
@@ -36,7 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @mixin \Eloquent
  */
-class Workstation extends Model implements ScannableModel
+class Workstation extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
@@ -59,5 +62,10 @@ class Workstation extends Model implements ScannableModel
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function toResource(): JsonResource
+    {
+        return new WorkstationResource($this);
     }
 }

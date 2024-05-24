@@ -4,6 +4,7 @@ namespace Domain\Barcodes\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\BarcodeFactory;
+use Domain\Codes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Company $company
- * @property-read Model|Eloquent $owner
+ * @property-read ScannableModel $owner
  *
  * @method static BarcodeFactory factory($count = null, $state = [])
  * @method static Builder|Barcode newModelQuery()

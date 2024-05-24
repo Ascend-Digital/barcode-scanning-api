@@ -2,6 +2,7 @@
 
 namespace Domain\Processes\Models;
 
+use App\Api\V1\Processes\Resources\ProcessResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
@@ -15,7 +16,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use Support\Contracts\ResourcableModel;
 
 /**
  * @property int $id
@@ -45,7 +48,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Eloquent
  */
-class Process extends Model implements ScannableModel
+class Process extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
@@ -78,5 +81,10 @@ class Process extends Model implements ScannableModel
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function toResource(): JsonResource
+    {
+        return new ProcessResource($this);
     }
 }
