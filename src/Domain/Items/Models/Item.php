@@ -2,7 +2,10 @@
 
 namespace Domain\Items\Models;
 
+use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\ItemFactory;
+use Domain\Codes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Company $company
  *
- * @method static \Database\Factories\ItemFactory factory($count = null, $state = [])
+ * @method static ItemFactory factory($count = null, $state = [])
  * @method static Builder|Item newModelQuery()
  * @method static Builder|Item newQuery()
  * @method static Builder|Item query()
@@ -30,17 +33,22 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Eloquent
  */
-class Item extends Model
+class Item extends Model implements ScannableModel
 {
     use HasFactory;
+    use Scannable;
 
     protected $fillable = [
         'name',
-        'company_id',
     ];
 
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function getCompanyId(): int
+    {
+        return $this->company->id;
     }
 }

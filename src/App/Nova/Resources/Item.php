@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources;
 
+use App\Nova\Actions\ExportBarcodes;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -11,7 +12,7 @@ class Item extends Resource
 {
     public static string $model = \Domain\Items\Models\Item::class;
 
-    public static $title = 'id';
+    public static $title = 'name';
 
     public static $search = [
         'id',
@@ -25,6 +26,15 @@ class Item extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
             BelongsTo::make('Company'),
+        ];
+    }
+
+    public function actions(NovaRequest $request): array
+    {
+        return [
+            (new ExportBarcodes)
+                ->confirmText(__('Please select a barcode type.'))
+                ->confirmButtonText(__('Generate PDF')),
         ];
     }
 }
