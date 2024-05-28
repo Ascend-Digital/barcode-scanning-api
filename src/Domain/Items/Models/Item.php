@@ -7,10 +7,12 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ItemFactory;
 use Domain\Codes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
+use Domain\Warehouses\Models\StorageLocation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -45,6 +47,11 @@ class Item extends Model implements ScannableModel
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function storageLocations(): BelongsToMany
+    {
+        return $this->belongsToMany(StorageLocation::class);
     }
 
     public function getCompanyId(): int
