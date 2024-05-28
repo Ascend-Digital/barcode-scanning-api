@@ -1,8 +1,9 @@
 <?php
 
-namespace Domain\Codes\Models;
+namespace Domain\Barcodes\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\BarcodeFactory;
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,28 +22,22 @@ use Illuminate\Support\Carbon;
  * @property-read Company $company
  * @property-read Model|Eloquent $owner
  *
- * @method static \Database\Factories\CodeFactory factory($count = null, $state = [])
- * @method static Builder|Code newModelQuery()
- * @method static Builder|Code newQuery()
- * @method static Builder|Code query()
- * @method static Builder|Code whereCompanyId($value)
- * @method static Builder|Code whereCreatedAt($value)
- * @method static Builder|Code whereId($value)
- * @method static Builder|Code whereOwnerId($value)
- * @method static Builder|Code whereOwnerType($value)
- * @method static Builder|Code whereUpdatedAt($value)
+ * @method static BarcodeFactory factory($count = null, $state = [])
+ * @method static Builder|Barcode newModelQuery()
+ * @method static Builder|Barcode newQuery()
+ * @method static Builder|Barcode query()
+ * @method static Builder|Barcode whereCompanyId($value)
+ * @method static Builder|Barcode whereCreatedAt($value)
+ * @method static Builder|Barcode whereId($value)
+ * @method static Builder|Barcode whereOwnerId($value)
+ * @method static Builder|Barcode whereOwnerType($value)
+ * @method static Builder|Barcode whereUpdatedAt($value)
  *
  * @mixin Eloquent
  */
-class Code extends Model
+class Barcode extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'company_id',
-        'name',
-        'code',
-    ];
 
     public function company(): BelongsTo
     {

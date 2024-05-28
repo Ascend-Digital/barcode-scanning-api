@@ -2,16 +2,13 @@
 
 namespace Database\Factories;
 
-use Domain\Codes\Models\Code;
+use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Domain\Codes\Code>
- */
-class CodeFactory extends Factory
+class BarcodeFactory extends Factory
 {
-    protected $model = Code::class;
+    protected $model = Barcode::class;
 
     /**
      * Define the model's default state.

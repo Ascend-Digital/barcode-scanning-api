@@ -5,7 +5,7 @@ namespace Domain\Items\Models;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ItemFactory;
-use Domain\Codes\Contracts\ScannableModel;
+use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Domain\Warehouses\Models\StorageLocation;
 use Illuminate\Database\Eloquent\Builder;

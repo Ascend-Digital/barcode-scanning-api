@@ -2,8 +2,8 @@
 
 namespace App\Shared\Traits;
 
-use Domain\Codes\Contracts\ScannableModel;
-use Domain\Codes\Models\Code;
+use Domain\Barcodes\Contracts\ScannableModel;
+use Domain\Barcodes\Models\Barcode;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait Scannable
@@ -12,7 +12,7 @@ trait Scannable
     {
         static::created(function (ScannableModel $model) {
             /**
-             * @var $barcode Code
+             * @var $barcode Barcode
              */
             $barcode = $model->barcode()->make();
             $barcode->company()->associate($model->getCompanyId());
@@ -22,6 +22,6 @@ trait Scannable
 
     public function barcode(): MorphOne
     {
-        return $this->morphOne(Code::class, 'owner');
+        return $this->morphOne(Barcode::class, 'owner');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Codes\Contracts;
+namespace Domain\Barcodes\Contracts;
 
 interface ScannableModel
 {

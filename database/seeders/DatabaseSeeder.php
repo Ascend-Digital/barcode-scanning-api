@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             StatusSeeder::class,
             WarehouseSeeder::class,
-            CodeSeeder::class,
+            BarcodeSeeder::class,
         ]);
     }
 }
