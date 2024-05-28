@@ -20,7 +20,7 @@ class WarehouseSeeder extends Seeder
                 ->hasWorkstations()
                 ->hasStorageLocations()
                 ->recycle($company)
-                ->create();
+                ->createQuietly();
         }
     }
 }
