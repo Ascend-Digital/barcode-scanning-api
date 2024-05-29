@@ -14,6 +14,7 @@ class Company extends Resource
 
     public static $search = [
         'id',
+        'name',
     ];
 
     public function fields(NovaRequest $request): array

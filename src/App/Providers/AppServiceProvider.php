@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
             'staff_member' => StaffMember::class,
             'process' => Process::class,
             'order' => Order::class,
-            'user' => User::class
+            'user' => User::class,
         ]);
 
     }
