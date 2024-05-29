@@ -39,4 +39,11 @@ class Item extends Resource
                 ->confirmButtonText(__('Generate PDF')),
         ];
     }
+
+    public function filters(NovaRequest $request)
+    {
+        return [
+            new \App\Nova\Filters\Company(),
+        ];
+    }
 }
