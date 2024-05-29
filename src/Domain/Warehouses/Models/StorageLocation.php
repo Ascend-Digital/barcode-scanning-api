@@ -2,6 +2,7 @@
 
 namespace Domain\Warehouses\Models;
 
+use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\StorageLocationFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
@@ -40,6 +41,7 @@ use Illuminate\Support\Carbon;
 class StorageLocation extends Model implements ScannableModel
 {
     use HasFactory;
+    use Scannable;
 
     protected $fillable = [
         'name',
@@ -62,6 +64,6 @@ class StorageLocation extends Model implements ScannableModel
 
     public function getCompanyId(): int
     {
-        return $this->company->id;
+        return $this->company_id;
     }
 }

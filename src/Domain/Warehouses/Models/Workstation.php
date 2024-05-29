@@ -2,6 +2,8 @@
 
 namespace Domain\Warehouses\Models;
 
+use App\Shared\Traits\Scannable;
+use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Domain\Processes\Models\Process;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,9 +36,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @mixin \Eloquent
  */
-class Workstation extends Model
+class Workstation extends Model implements ScannableModel
 {
     use HasFactory;
+    use Scannable;
 
     public function company(): BelongsTo
     {
@@ -51,5 +54,10 @@ class Workstation extends Model
     public function warehouse(): BelongsTo
     {
         return $this->belongsTo(Warehouse::class);
+    }
+
+    public function getCompanyId(): int
+    {
+        return $this->company_id;
     }
 }
