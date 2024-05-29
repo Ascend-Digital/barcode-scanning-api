@@ -12,6 +12,11 @@
             src="data:image/png;base64, {{ $barcode['image'] }}"
             alt="Barcode"
         />
+        <div>
+            @foreach ($barcode['barcode'] as $character)
+                <span>{{ $character }}</span>
+            @endforeach
+        </div>
         <p><strong>Name: </strong>{{$barcode['name']}} </p>
         <p><strong>Company: </strong> {{$barcode['company']}} </p>
     </div>
@@ -22,10 +27,6 @@
 <style>
 .outer-container {
     text-align: center;
-    margin-bottom: 200px;
-}
-
-.barcode-image {
-    width: 100%;
+    margin-bottom: 80px;
 }
 </style>
