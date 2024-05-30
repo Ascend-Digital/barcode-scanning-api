@@ -19,6 +19,7 @@ class BarcodeFactory extends Factory
     {
         return [
             'company_id' => Company::factory(),
+            'barcode' => fake()->ean13(),
         ];
     }
 }

@@ -39,7 +39,7 @@ class ExportBarcodes extends Action implements ShouldQueue
             return [
                 'name' => $model->name,
                 'company' => $model->company->name,
-                'image' => $codeType->getBarcodePNG((string) $model->barcode->id, $fields['type']),
+                'image' => $codeType->getBarcodePNG((string) $model->barcode->barcode, $fields['type']),
             ];
         });
 
