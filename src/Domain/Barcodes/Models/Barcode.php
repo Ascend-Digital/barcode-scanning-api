@@ -39,6 +39,10 @@ class Barcode extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'barcode',
+    ];
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
