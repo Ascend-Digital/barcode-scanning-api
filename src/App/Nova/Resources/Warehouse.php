@@ -21,7 +21,7 @@ class Warehouse extends Resource
      */
     public static $search = [
         'id',
-        'name'
+        'name',
     ];
 
     public function fields(NovaRequest $request): array
