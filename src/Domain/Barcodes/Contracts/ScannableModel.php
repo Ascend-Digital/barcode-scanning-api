@@ -6,5 +6,5 @@ interface ScannableModel
 {
     public function getCompanyId(): int;
 
-    public function availableActions(): array;
+    //    public function availableActions();
 }

@@ -14,7 +14,7 @@ class ItemResource extends JsonResource
             'type' => 'Item',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions(), // use a resource
+            'actions' => $this->availableActions([1, 2]),
         ];
     }
 }

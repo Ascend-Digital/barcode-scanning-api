@@ -22,71 +22,55 @@ return [
         Item::class => [
             [
                 'name' => 'Pick from storage location',
-                //'endpoint' => route('storage-locations.item.pick')
+                'endpoint' => 'storage-locations.item.pick',
+                'method' => 'POST',
+                'bind_id' => true,
             ],
             [
                 'name' => 'Place in storage location',
-                //'endpoint' => route('storage-locations.item.place')
+                'endpoint' => 'storage-locations.item.place',
+                'method' => 'POST',
+                'bind_id' => true,
             ],
         ],
         Order::class => [
             [
-                'name' => 'Pick from storage location',
-                //'endpoint' => route('storage-locations.item.pick')
-            ],
-            [
-                'name' => 'Place in storage location',
-                //'endpoint' => route('storage-locations.item.place')
+                'name' => 'Go to storage location',
+                'endpoint' => null,
+                'bind_id' => false,
             ],
         ],
         Warehouse::class => [
             [
                 'name' => 'Go to next screen',
-                //'endpoint' => route('storage-locations.item.pick')
-            ],
-            [
-                'name' => 'Place in storage location',
-                //'endpoint' => route('storage-locations.item.place')
+                'endpoint' => null,
+                'bind_id' => false,
+
             ],
         ],
         StorageLocation::class => [
-            [
-                'name' => 'Pick from storage location',
-                //'endpoint' => route('storage-locations.item.pick')
-            ],
-            [
-                'name' => 'Place in storage location',
-                //'endpoint' => route('storage-locations.item.place')
-            ],
         ],
         Workstation::class => [
             [
-                'name' => 'Pick from storage location',
-                //'endpoint' => route('storage-locations.item.pick')
-            ],
-            [
-                'name' => 'Place in storage location',
-                //'endpoint' => route('storage-locations.item.place')
+                'name' => 'Open camera to scan process',
+                'endpoint' => null,
+                'bind_id' => false,
+
             ],
         ],
         Process::class => [
             [
-                'name' => 'Pick from storage location',
-                //'endpoint' => route('storage-locations.item.pick')
-            ],
-            [
-                'name' => 'Place in storage location',
-                //'endpoint' => route('storage-locations.item.place')
+                'name' => 'Perform process',
+                'endpoint' => 'processes.perform',
+                'bind_id' => true,
             ],
         ],
         StaffMember::class => [
             [
-                'name' => 'Pick from storage location',
-                //'endpoint' => route('storage-locations.item.pick')
-            ],
-            [
-                'name' => 'Place in storage location',
-                //'endpoint' => route('storage-locations.item.place')
+                'name' => 'Login',
+                'endpoint' => 'login',
+                'bind_id' => false,
+                'method' => 'POST',
             ],
         ],
     ],

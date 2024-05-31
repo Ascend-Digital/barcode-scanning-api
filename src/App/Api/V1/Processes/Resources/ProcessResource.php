@@ -15,19 +15,19 @@ class ProcessResource extends JsonResource
             'type' => 'Process',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions(),
+            'actions' => $this->availableActions($this->id),
         ];
     }
 
-    private function availableActions(): array
-    {
-        return [
-            /*
-            [
-                'name' => 'Pick from storage location',
-                'endpoint' => route('storage-locations.item.pick')
-            ],
-            */
-        ];
-    }
+    //    private function availableActions(): array
+    //    {
+    //        return [
+    //            /*
+    //            [
+    //                'name' => 'Pick from storage location',
+    //                'endpoint' => route('storage-locations.item.pick')
+    //            ],
+    //            */
+    //        ];
+    //    }
 }

@@ -50,8 +50,18 @@ trait Scannable
         return $this->morphMany(Scan::class, 'owner');
     }
 
-    public function availableActions(): array
+    public function availableActions($params = null)
     {
-        return config('scannable.actions.'.get_class($this));
+        $actions = config('scannable.actions.'.get_class($this));
+
+        return collect($actions)->map(function ($action) use ($params) {
+            $routeParameters = $action['bind_id'] ? $params : []; // could just check params
+
+            return [
+                'name' => $action['name'],
+                'endpoint' => $action['endpoint'] ? route($action['endpoint'], $routeParameters) : null,
+                'method' => $action['method'] ?? null,
+            ];
+        });
     }
 }

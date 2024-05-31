@@ -23,16 +23,4 @@ class StorageLocationResource extends JsonResource
             'actions' => $this->availableActions(),
         ];
     }
-
-    private function availableActions(): array
-    {
-        return [
-            /*
-            [
-                'name' => 'Pick from storage location',
-                'endpoint' => route('storage-locations.item.pick')
-            ],
-            */
-        ];
-    }
 }
