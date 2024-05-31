@@ -6,6 +6,7 @@ use App\Api\V1\Items\Resources\ItemResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ItemFactory;
+use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Domain\Warehouses\Models\StorageLocation;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 use Support\Contracts\ResourcableModel;
 
@@ -43,7 +45,7 @@ use Support\Contracts\ResourcableModel;
  *
  * @mixin Eloquent
  */
-class Item extends Model implements ResourcableModel
+class Item extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
@@ -67,7 +69,7 @@ class Item extends Model implements ResourcableModel
         return $this->belongsToMany(StorageLocation::class);
     }
 
-    public function toResource(): ItemResource
+    public function toResource(): JsonResource
     {
         return new ItemResource($this);
     }
