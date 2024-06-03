@@ -2,6 +2,7 @@
 
 namespace Domain\Processes\Models;
 
+use App\Api\V1\Processes\Resources\ProcessCollection;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
@@ -81,8 +82,26 @@ class Process extends Model implements ScannableModel
         return $this->belongsTo(Status::class, 'to_status');
     }
 
+    public function newCollection(array $models = []): ProcessCollection
+    {
+        return new ProcessCollection($models);
+    }
+
+//    public function itemOrders()
+//    {
+//        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
+//    }
+
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function withAllPrerequisites(): Collection // with?
+    {
+        $this->load('prerequisiteProcesses');
+
+        return $this->prerequisiteProcesses
+            ->flatMap(fn($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
     }
 }

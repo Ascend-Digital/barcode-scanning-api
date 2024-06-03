@@ -3,8 +3,11 @@
 namespace App\Nova\Resources;
 
 use App\Nova\Actions\ExportBarcodes;
+use App\Nova\Actions\PerformProcess;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -28,15 +31,17 @@ class Item extends Resource
                 ->rules('required', 'max:255'),
             BelongsTo::make('Company'),
             BelongsToMany::make('Storage Locations', 'storageLocations', StorageLocation::class),
+            BelongsToMany::make('Processes', 'processes', Process::class)
         ];
     }
+
+    // TODO make Nova action to perform process on order item
+
 
     public function actions(NovaRequest $request): array
     {
         return [
-            (new ExportBarcodes)
-                ->confirmText(__('Please select a barcode type.'))
-                ->confirmButtonText(__('Generate PDF')),
+            (new PerformProcess())
         ];
     }
 }
