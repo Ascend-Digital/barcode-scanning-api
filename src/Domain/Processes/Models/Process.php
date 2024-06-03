@@ -2,20 +2,26 @@
 
 namespace Domain\Processes\Models;
 
+use App\Api\V1\Processes\Resources\ProcessCollection;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
+use Domain\Items\Models\Item;
+use Domain\Items\Models\OrderItem;
+use Domain\Items\Models\ItemProcess;
+use Domain\Orders\Models\Order;
+use Domain\Orders\Models\OrderProcess;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
@@ -65,6 +71,28 @@ class Process extends Model implements ScannableModel
         return $this->belongsToMany(Process::class, 'prerequisite_process', 'process_id', 'prerequisite_id');
     }
 
+    public function itemOrders()
+    {
+        return $this->belongsToMany(OrderItem::class, 'item_order_process', 'process_id', 'item_order_id');
+    }
+
+//    public function orders(): BelongsToMany
+//    {
+//        return $this->belongsToMany(Order::class)->using(OrderProcess::class)->withPivot('completed_at');
+//    }
+
+//    public function itemOrder()
+//    {
+//        return $this->belongsTo(OrderItem::class);
+//    }
+
+    // belongs to an order through items?
+
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class)->using(ItemProcess::class)->withPivot('completed_at');
+    }
+
     public function fromStatus()
     {
         return $this->belongsTo(Status::class, 'from_status');
@@ -75,8 +103,26 @@ class Process extends Model implements ScannableModel
         return $this->belongsTo(Status::class, 'to_status');
     }
 
+    public function newCollection(array $models = []): ProcessCollection
+    {
+        return new ProcessCollection($models);
+    }
+
+//    public function itemOrders()
+//    {
+//        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
+//    }
+
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function withAllPrerequisites(): Collection // with?
+    {
+        $this->load('prerequisiteProcesses');
+
+        return $this->prerequisiteProcesses
+            ->flatMap(fn($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
     }
 }

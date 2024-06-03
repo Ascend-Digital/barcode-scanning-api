@@ -7,6 +7,8 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ItemFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
+use Domain\Orders\Models\Order;
+use Domain\Processes\Models\Process;
 use Domain\Warehouses\Models\StorageLocation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,6 +54,16 @@ class Item extends Model implements ScannableModel
     public function storageLocations(): BelongsToMany
     {
         return $this->belongsToMany(StorageLocation::class);
+    }
+
+    public function processes()
+    {
+        return $this->belongsToMany(Process::class)->using(ItemProcess::class);
+    }
+
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'item_order')->withPivot('id');
     }
 
     public function getCompanyId(): int

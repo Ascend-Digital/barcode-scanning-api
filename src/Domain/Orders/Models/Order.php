@@ -7,11 +7,18 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\OrderFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
+use Domain\Items\Models\Item;
+use Domain\Items\Models\OrderItem;
+use Domain\Items\Models\ItemProcess;
+use Domain\Processes\Models\Process;
 use Domain\Statuses\Models\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Carbon;
 
 /**
@@ -48,6 +55,11 @@ class Order extends Model implements ScannableModel
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 
     public function getCompanyId(): int
