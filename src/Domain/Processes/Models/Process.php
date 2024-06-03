@@ -7,15 +7,16 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
+use Domain\Orders\Models\OrderItem;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
@@ -63,6 +64,11 @@ class Process extends Model implements ScannableModel
     public function prerequisiteProcesses(): BelongsToMany
     {
         return $this->belongsToMany(Process::class, 'prerequisite_process', 'process_id', 'prerequisite_id');
+    }
+
+    public function orderItems(): BelongsToMany
+    {
+        return $this->belongsToMany(OrderItem::class);
     }
 
     public function fromStatus()
