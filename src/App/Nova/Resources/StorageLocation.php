@@ -42,4 +42,11 @@ class StorageLocation extends Resource
                 ->confirmButtonText(__('Generate PDF')),
         ];
     }
+
+    public function filters(NovaRequest $request): array
+    {
+        return [
+            new \App\Nova\Filters\Company(),
+        ];
+    }
 }
