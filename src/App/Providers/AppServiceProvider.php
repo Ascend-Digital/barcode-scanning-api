@@ -53,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
             'user' => User::class,
             'status' => Status::class,
             'order_item' => OrderItem::class,
+            'order_item_process' => OrderItemProcess::class,
         ]);
 
     }

@@ -13,7 +13,6 @@ use Domain\Orders\Models\OrderItem;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -89,6 +88,16 @@ class Process extends Model implements ResourcableModel, ScannableModel
         return $this->belongsTo(Status::class, 'to_status');
     }
 
+    public function newCollection(array $models = []): ProcessCollection
+    {
+        return new ProcessCollection($models);
+    }
+
+//    public function itemOrders()
+//    {
+//        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
+//    }
+
     public function getCompanyId(): int
     {
         return $this->company_id;
@@ -97,5 +106,13 @@ class Process extends Model implements ResourcableModel, ScannableModel
     public function toResource(): JsonResource
     {
         return new ProcessResource($this);
+    }
+
+    public function withAllPrerequisites(): Collection // with?
+    {
+        $this->load('prerequisiteProcesses');
+
+        return $this->prerequisiteProcesses
+            ->flatMap(fn($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
     }
 }

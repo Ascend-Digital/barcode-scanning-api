@@ -2,10 +2,14 @@
 
 namespace App\Nova\Resources;
 
+use App\Nova\Actions\PerformProcess;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Resource;
 
 class Order extends Resource
 {
@@ -20,6 +24,7 @@ class Order extends Resource
 
     public function fields(NovaRequest $request): array
     {
+        // TODO this will be readonly
         return [
             ID::make()->sortable(),
             BelongsTo::make('Company'),
@@ -27,4 +32,6 @@ class Order extends Resource
             HasMany::make('Order Items'),
         ];
     }
+
+
 }
