@@ -51,7 +51,7 @@ class Order extends Model implements ScannableModel
         return $this->belongsTo(Status::class);
     }
 
-    public function items(): HasMany
+    public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }

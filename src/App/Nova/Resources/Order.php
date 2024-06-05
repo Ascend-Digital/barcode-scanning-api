@@ -24,7 +24,7 @@ class Order extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Company')->readonly(),
             BelongsTo::make('Status')->readonly(),
-            HasMany::make('Order Items', 'items', OrderItem::class),
+            HasMany::make('Order Items'),
         ];
     }
 }
