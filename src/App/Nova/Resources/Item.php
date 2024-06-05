@@ -28,11 +28,8 @@ class Item extends Resource
                 ->rules('required', 'max:255'),
             BelongsTo::make('Company'),
             BelongsToMany::make('Storage Locations', 'storageLocations', StorageLocation::class),
-            //            BelongsToMany::make('Processes', 'processes', Process::class),
         ];
     }
-
-    // TODO make Nova action to perform process on order item
 
     public function actions(NovaRequest $request): array
     {
