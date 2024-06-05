@@ -11,7 +11,6 @@ use Domain\Items\Models\Item;
 use Domain\Items\Models\ItemProcess;
 use Domain\Items\Models\OrderItem;
 use Domain\Orders\Models\Order;
-use Domain\Orders\Models\OrderProcess;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Builder;
@@ -74,7 +73,6 @@ class Process extends Model implements ScannableModel
     {
         return $this->belongsToMany(OrderItem::class, 'order_item_process', 'process_id', 'order_item_id');
     }
-
 
     // belongs to an order through items?
 
