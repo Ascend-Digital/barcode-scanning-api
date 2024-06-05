@@ -7,11 +7,11 @@ use Domain\Processes\Models\Process;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class OrderItem extends Model
 {
     public $timestamps = false;
+
     public $incrementing = true;
 
     protected $casts = ['completed_at' => 'datetime'];

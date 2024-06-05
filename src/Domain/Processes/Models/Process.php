@@ -93,10 +93,10 @@ class Process extends Model implements ResourcableModel, ScannableModel
         return new ProcessCollection($models);
     }
 
-//    public function itemOrders()
-//    {
-//        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
-//    }
+    //    public function itemOrders()
+    //    {
+    //        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
+    //    }
 
     public function getCompanyId(): int
     {
@@ -113,6 +113,6 @@ class Process extends Model implements ResourcableModel, ScannableModel
         $this->load('prerequisiteProcesses');
 
         return $this->prerequisiteProcesses
-            ->flatMap(fn($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
+            ->flatMap(fn ($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
     }
 }
