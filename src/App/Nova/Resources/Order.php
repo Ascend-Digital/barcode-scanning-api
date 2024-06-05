@@ -20,7 +20,6 @@ class Order extends Resource
 
     public function fields(NovaRequest $request): array
     {
-        // TODO this will be readonly
         return [
             ID::make()->sortable(),
             BelongsTo::make('Company')->readonly(),

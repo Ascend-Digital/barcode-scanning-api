@@ -7,11 +7,6 @@ use Domain\Users\Models\User;
 
 class OrderItemPolicy
 {
-    public function before(User $user): bool
-    {
-        return $user->email === 'admin@ascend.agency';
-    }
-
     public function viewAny(User $user): bool
     {
         //
