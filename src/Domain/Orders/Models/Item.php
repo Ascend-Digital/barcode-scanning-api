@@ -56,7 +56,7 @@ class Item extends Model implements ScannableModel
         return $this->belongsToMany(StorageLocation::class);
     }
 
-    public function processes()
+    public function processes(): BelongsToMany
     {
         return $this->belongsToMany(Process::class)->using(ItemProcess::class);
     }

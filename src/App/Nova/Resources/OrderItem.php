@@ -19,13 +19,6 @@ class OrderItem extends Resource
         'id',
     ];
 
-    public static function relatableProcesses(NovaRequest $request, $query)
-    {
-        dd($query);
-
-        return $query->where('completed_at', null);
-    }
-
     public function fields(NovaRequest $request): array
     {
         return [

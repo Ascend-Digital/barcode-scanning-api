@@ -28,7 +28,6 @@ class Order extends Resource
             BelongsTo::make('Company'),
             BelongsTo::make('Status'),
             HasMany::make('Order Items', 'items', OrderItem::class),
-            //            BelongsToMany::make('Items', 'items', Item::class),
         ];
     }
 }
