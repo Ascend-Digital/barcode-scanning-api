@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
@@ -28,4 +29,19 @@ class OrderItem extends Resource
             BelongsToMany::make('Processes', 'processes', Process::class),
         ];
     }
+
+    //    public static function authorizedToCreate(Request $request)
+    //    {
+    //        return false;
+    //    }
+    //
+    //    public function authorizedToDelete(Request $request)
+    //    {
+    //        return false;
+    //    }
+    //
+    //    public function authorizedToUpdate(Request $request)
+    //    {
+    //        return false;
+    //    }
 }

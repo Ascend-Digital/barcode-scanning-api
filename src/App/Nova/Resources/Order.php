@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -24,9 +25,24 @@ class Order extends Resource
         // TODO this will be readonly
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Company'),
-            BelongsTo::make('Status'),
+            BelongsTo::make('Company')->readonly(),
+            BelongsTo::make('Status')->readonly(),
             HasMany::make('Order Items'),
         ];
     }
+
+    //    public static function authorizedToCreate(Request $request)
+    //    {
+    //        return false;
+    //    }
+    //
+    //    public function authorizedToDelete(Request $request)
+    //    {
+    //        return false;
+    //    }
+    //
+    //    public function authorizedToUpdate(Request $request)
+    //    {
+    //        return false;
+    //    }
 }

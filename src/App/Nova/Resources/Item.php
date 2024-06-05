@@ -28,7 +28,7 @@ class Item extends Resource
                 ->rules('required', 'max:255'),
             BelongsTo::make('Company'),
             BelongsToMany::make('Storage Locations', 'storageLocations', StorageLocation::class),
-            BelongsToMany::make('Processes', 'processes', Process::class),
+            //            BelongsToMany::make('Processes', 'processes', Process::class),
         ];
     }
 
