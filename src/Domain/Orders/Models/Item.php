@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Items\Models;
+namespace Domain\Orders\Models;
 
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Traits;
 
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Users\Models\StaffMember;
