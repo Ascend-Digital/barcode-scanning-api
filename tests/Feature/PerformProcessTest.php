@@ -1,8 +1,9 @@
 <?php
 
-use Domain\Items\Models\Item;
-use Domain\Items\Models\OrderItem;
+use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
+use Domain\Orders\Models\OrderItem;
+use Domain\Processes\Models\Process;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -10,8 +11,8 @@ uses(RefreshDatabase::class);
 it('throws a validation exception if a process has incomplete prerequisites', function () {
     $order = Order::factory()->create();
     $item = Item::factory()->create();
-    $prerequisite = \Domain\Processes\Models\Process::factory()->create();
-    $process = \Domain\Processes\Models\Process::factory()->create();
+    $prerequisite = Process::factory()->create();
+    $process = Process::factory()->create();
     $process->prerequisiteProcesses()->sync($prerequisite);
     $orderItem = OrderItem::make();
     $orderItem->order()->associate($order);
@@ -28,8 +29,8 @@ it('throws a validation exception if a process has incomplete prerequisites', fu
 it('has a success response if there are no incomplete prerequisites', function () {
     $order = Order::factory()->create();
     $item = Item::factory()->create();
-    $prerequisite = \Domain\Processes\Models\Process::factory()->create();
-    $process = \Domain\Processes\Models\Process::factory()->create();
+    $prerequisite = Process::factory()->create();
+    $process = Process::factory()->create();
     $process->prerequisiteProcesses()->sync($prerequisite);
     $orderItem = OrderItem::make();
     $orderItem->order()->associate($order);

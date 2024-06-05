@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Api\V1\Processes\Resources\ProcessCollection;
 use Closure;
-use Domain\Items\Models\OrderItem;
+use Domain\Orders\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
