@@ -102,6 +102,6 @@ class Process extends Model implements ScannableModel
         $this->load('prerequisiteProcesses');
 
         return $this->prerequisiteProcesses
-            ->flatMap(fn($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
+            ->flatMap(fn ($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
     }
 }
