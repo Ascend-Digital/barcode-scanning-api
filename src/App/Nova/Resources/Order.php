@@ -2,11 +2,9 @@
 
 namespace App\Nova\Resources;
 
-use App\Nova\Actions\PerformProcess;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
@@ -30,9 +28,7 @@ class Order extends Resource
             BelongsTo::make('Company'),
             BelongsTo::make('Status'),
             HasMany::make('Order Items', 'items', OrderItem::class),
-//            BelongsToMany::make('Items', 'items', Item::class),
+            //            BelongsToMany::make('Items', 'items', Item::class),
         ];
     }
-
-
 }

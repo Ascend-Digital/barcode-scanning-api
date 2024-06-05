@@ -7,11 +7,11 @@ use Domain\Processes\Models\Process;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class OrderItem extends Pivot
+class OrderItem extends Model
 {
     public $timestamps = false;
+
     public $incrementing = true;
 
     protected $casts = ['completed_at' => 'datetime'];
@@ -23,7 +23,7 @@ class OrderItem extends Pivot
 
     public function processes(): BelongsToMany
     {
-        return $this->belongsToMany(Process::class, 'item_order_process', 'item_order_id')->withPivot('completed_at'); // todo change item_order_id after migration
+        return $this->belongsToMany(Process::class, 'order_item_process', 'order_item_id')->withPivot('completed_at'); // todo change item_order_id after migration
     }
 
     public function item(): BelongsTo

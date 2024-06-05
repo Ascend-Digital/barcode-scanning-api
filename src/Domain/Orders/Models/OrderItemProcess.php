@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class ItemOrderProcess extends Pivot
 {
     protected $casts = [
-        'completed_at' => 'datetime'
+        'completed_at' => 'datetime',
     ];
 }

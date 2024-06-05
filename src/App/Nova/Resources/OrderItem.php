@@ -3,11 +3,8 @@
 namespace App\Nova\Resources;
 
 use App\Nova\Resource;
-use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -26,6 +23,7 @@ class OrderItem extends Resource
     public static function relatableProcesses(NovaRequest $request, $query)
     {
         dd($query);
+
         return $query->where('completed_at', null);
     }
 
@@ -35,7 +33,7 @@ class OrderItem extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Order'),
             BelongsTo::make('Item'),
-            BelongsToMany::make('Processes', 'processes', Process::class)
+            BelongsToMany::make('Processes', 'processes', Process::class),
         ];
     }
 }

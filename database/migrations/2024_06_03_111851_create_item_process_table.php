@@ -1,7 +1,6 @@
 <?php
 
 use Domain\Items\Models\Item;
-use Domain\Items\Models\OrderItem;
 use Domain\Processes\Models\Process;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

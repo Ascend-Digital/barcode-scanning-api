@@ -9,8 +9,8 @@ use Database\Factories\ProcessFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Domain\Items\Models\Item;
-use Domain\Items\Models\OrderItem;
 use Domain\Items\Models\ItemProcess;
+use Domain\Items\Models\OrderItem;
 use Domain\Orders\Models\Order;
 use Domain\Orders\Models\OrderProcess;
 use Domain\Statuses\Models\Status;
@@ -71,20 +71,20 @@ class Process extends Model implements ScannableModel
         return $this->belongsToMany(Process::class, 'prerequisite_process', 'process_id', 'prerequisite_id');
     }
 
-    public function itemOrders()
+    public function orderItems()
     {
-        return $this->belongsToMany(OrderItem::class, 'item_order_process', 'process_id', 'item_order_id');
+        return $this->belongsToMany(OrderItem::class, 'order_item_process', 'process_id', 'order_item_id');
     }
 
-//    public function orders(): BelongsToMany
-//    {
-//        return $this->belongsToMany(Order::class)->using(OrderProcess::class)->withPivot('completed_at');
-//    }
+    //    public function orders(): BelongsToMany
+    //    {
+    //        return $this->belongsToMany(Order::class)->using(OrderProcess::class)->withPivot('completed_at');
+    //    }
 
-//    public function itemOrder()
-//    {
-//        return $this->belongsTo(OrderItem::class);
-//    }
+    //    public function itemOrder()
+    //    {
+    //        return $this->belongsTo(OrderItem::class);
+    //    }
 
     // belongs to an order through items?
 
@@ -108,10 +108,10 @@ class Process extends Model implements ScannableModel
         return new ProcessCollection($models);
     }
 
-//    public function itemOrders()
-//    {
-//        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
-//    }
+    //    public function itemOrders()
+    //    {
+    //        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
+    //    }
 
     public function getCompanyId(): int
     {
@@ -123,6 +123,6 @@ class Process extends Model implements ScannableModel
         $this->load('prerequisiteProcesses');
 
         return $this->prerequisiteProcesses
-            ->flatMap(fn($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
+            ->flatMap(fn ($prerequisite) => $prerequisite->withAllPrerequisites()->push($prerequisite));
     }
 }
