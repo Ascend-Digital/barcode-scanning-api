@@ -7,8 +7,6 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
-use Domain\Items\Models\Item;
-use Domain\Items\Models\ItemProcess;
 use Domain\Items\Models\OrderItem;
 use Domain\Orders\Models\Order;
 use Domain\Statuses\Models\Status;
@@ -75,11 +73,6 @@ class Process extends Model implements ScannableModel
     }
 
     // belongs to an order through items?
-
-    public function items(): BelongsToMany
-    {
-        return $this->belongsToMany(Item::class)->using(ItemProcess::class);
-    }
 
     public function fromStatus()
     {
