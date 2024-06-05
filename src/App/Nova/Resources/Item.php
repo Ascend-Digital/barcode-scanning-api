@@ -2,7 +2,7 @@
 
 namespace App\Nova\Resources;
 
-use App\Nova\Actions\PerformProcess;
+use App\Nova\Actions\ExportBarcodes;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
@@ -37,7 +37,9 @@ class Item extends Resource
     public function actions(NovaRequest $request): array
     {
         return [
-            (new PerformProcess()),
+            (new ExportBarcodes)
+                ->confirmText(__('Please select a barcode type.'))
+                ->confirmButtonText(__('Generate PDF')),
         ];
     }
 }

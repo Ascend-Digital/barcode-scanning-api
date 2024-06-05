@@ -1,5 +1,7 @@
 <?php
 
+use Domain\Items\Models\OrderItem;
+use Domain\Processes\Models\Process;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,8 +12,8 @@ return new class extends Migration
     {
         Schema::create('order_item_process', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_item_id')->constrained('order_items')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(\Domain\Processes\Models\Process::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(OrderItem::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(Process::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamp('completed_at')->nullable();
         });
     }
