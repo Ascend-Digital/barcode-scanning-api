@@ -73,7 +73,7 @@ class Item extends Model implements ResourcableModel, ScannableModel
         return $this->hasMany(OrderItem::class);
     }
 
-    public function processes()
+    public function processes(): BelongsToMany
     {
         return $this->belongsToMany(Process::class)->using(ItemProcess::class);
     }

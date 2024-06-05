@@ -10,10 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class OrderItem extends Model
 {
-    public $timestamps = false;
-
-    public $incrementing = true;
-
     protected $casts = ['completed_at' => 'datetime'];
 
     public function order(): BelongsTo
