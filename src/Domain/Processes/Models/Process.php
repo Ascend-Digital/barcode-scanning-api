@@ -60,10 +60,10 @@ class Process extends Model implements ScannableModel
         return $this->belongsToMany(Workstation::class);
     }
 
-    //    public function status(): BelongsTo
-    //    {
-    //        return $this->belongsTo(Status::class);
-    //    }
+    public function prerequisiteProcesses(): BelongsToMany
+    {
+        return $this->belongsToMany(Process::class, 'prerequisite_process', 'process_id', 'prerequisite_id');
+    }
 
     public function fromStatus()
     {
