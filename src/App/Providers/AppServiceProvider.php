@@ -36,7 +36,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::before(function (User $user) {
-            return str_ends_with($user->email, '@ascend.agency') ? true : null;
+            if (str_ends_with($user->email, '@ascend.agency')) {
+                return true;
+            }
         });
 
         Relation::enforceMorphMap([
