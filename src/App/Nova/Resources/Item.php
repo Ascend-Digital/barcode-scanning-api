@@ -11,7 +11,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Item extends Resource
 {
-    public static string $model = \Domain\Items\Models\Item::class;
+    public static string $model = \Domain\Orders\Models\Item::class;
 
     public static $title = 'name';
 

@@ -4,7 +4,7 @@ namespace Tests\App\Nova\Actions;
 
 use App\Notifications\PDFGenerated;
 use App\Nova\Actions\ExportBarcodes;
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Domain\Users\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;

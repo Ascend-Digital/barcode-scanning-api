@@ -11,11 +11,6 @@ class StorageLocationFactory extends Factory
 {
     protected $model = StorageLocation::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [

@@ -4,7 +4,7 @@ namespace Domain\Companies\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\CompanyFactory;
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Statuses\Models\Status;

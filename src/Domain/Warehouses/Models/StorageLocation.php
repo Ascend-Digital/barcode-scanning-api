@@ -7,7 +7,7 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\StorageLocationFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
