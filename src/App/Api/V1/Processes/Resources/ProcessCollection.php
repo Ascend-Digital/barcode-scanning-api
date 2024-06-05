@@ -13,7 +13,6 @@ class ProcessCollection extends Collection
      */
     public function validate($allPrerequisites): void
     {
-        //        dd($this->reverse());
         throw_if($this->intersect($allPrerequisites)->isNotEmpty(), ValidationException::withMessages([$this->reverse()]));
     }
 }
