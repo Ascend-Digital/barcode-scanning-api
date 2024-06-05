@@ -88,11 +88,6 @@ class Process extends Model implements ResourcableModel, ScannableModel
         return $this->belongsTo(Status::class, 'to_status');
     }
 
-    public function newCollection(array $models = []): ProcessCollection
-    {
-        return new ProcessCollection($models);
-    }
-
     //    public function itemOrders()
     //    {
     //        return $this->belongsToMany(OrderItem::class)->using(OrderItem::class);
