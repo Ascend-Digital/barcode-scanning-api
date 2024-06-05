@@ -22,8 +22,8 @@ class Order extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Company')->readonly(),
-            BelongsTo::make('Status')->readonly(),
+            BelongsTo::make('Company'),
+            BelongsTo::make('Status'),
             HasMany::make('Order Items'),
         ];
     }
