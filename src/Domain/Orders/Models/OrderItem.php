@@ -2,7 +2,6 @@
 
 namespace Domain\Orders\Models;
 
-use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

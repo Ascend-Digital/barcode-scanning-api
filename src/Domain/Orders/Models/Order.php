@@ -9,7 +9,6 @@ use Database\Factories\OrderFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
-use Domain\Items\Models\OrderItem;
 use Domain\Statuses\Models\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
