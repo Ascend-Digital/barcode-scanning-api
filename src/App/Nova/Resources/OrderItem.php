@@ -2,7 +2,6 @@
 
 namespace App\Nova\Resources;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
@@ -10,7 +9,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class OrderItem extends Resource
 {
-    public static string $model = \Domain\Items\Models\OrderItem::class;
+    public static string $model = \Domain\Orders\Models\OrderItem::class;
 
     public static $displayInNavigation = false;
 

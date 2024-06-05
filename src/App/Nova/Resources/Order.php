@@ -28,19 +28,4 @@ class Order extends Resource
             HasMany::make('Order Items', 'items', OrderItem::class),
         ];
     }
-
-    //    public static function authorizedToCreate(Request $request)
-    //    {
-    //        return false;
-    //    }
-    //
-    //    public function authorizedToDelete(Request $request)
-    //    {
-    //        return false;
-    //    }
-    //
-    //    public function authorizedToUpdate(Request $request)
-    //    {
-    //        return false;
-    //    }
 }
