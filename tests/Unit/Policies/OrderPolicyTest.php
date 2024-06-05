@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('allows a user to perform all policy actions', function (User $user, string $action, bool $expectedResult) {
+it('is set up correctly for admin and non-admin users', function (User $user, string $action, bool $expectedResult) {
     $this->assertEquals($expectedResult, Gate::forUser($user)->allows($action));
 })->with([
     [fn () => User::factory()->create(['email' => 'test@ascend.agency']), 'action' => 'view-order', 'expectedResult' => true],
