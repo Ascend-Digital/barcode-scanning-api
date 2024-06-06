@@ -6,37 +6,53 @@ use App\Api\V1\Processes\Resources\ProcessCollection;
 use Closure;
 use Domain\Orders\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class EnsureProcessCanBePerformed
 {
     /**
-     * @throws ValidationException
+     * @throws ValidationException|Throwable
      */
     public function handle(Request $request, Closure $next): Response
     {
         $process = $request->route('process');
-        $item = $request->route('item');
         $order = $request->route('order');
+        $item = $request->route('item');
 
-        $allPrerequisites = $process->withAllPrerequisites();
+        $allPrerequisitesForCurrentProcess = $process->withAllPrerequisites();
 
-        // get the matching order item
-        $orderItem = OrderItem::where('order_id', $order->id)->first();
+        $orderItem = $this->getOrderItem($order, $item);
+        $orderItemPrerequisites = $this->getMatchingOrderItemProcesses($orderItem, $allPrerequisitesForCurrentProcess);
 
-        // get the order item processes which are also in the prerequisite processes
-        $processes = $orderItem->processes()->whereIn('order_item_process.id', $allPrerequisites->pluck('id'))->get();
+        /**
+         * @var ProcessCollection $incompleteItemProcesses
+         */
+        $incompleteItemProcesses = $this->getIncompleteItemProcesses($orderItemPrerequisites);
 
-        $incompleteItemProcesses = new ProcessCollection();
-        foreach ($processes as $process) {
-            if ($process->pivot->completed_at === null) {
-                $incompleteItemProcesses[] = $process;
-            }
-        }
-
-        $incompleteItemProcesses->validate($allPrerequisites);
+        $incompleteItemProcesses->validate($allPrerequisitesForCurrentProcess);
 
         return $next($request);
+    }
+
+    private function getOrderItem($order, $item): OrderItem
+    {
+        return OrderItem::where('order_id', $order->id)
+            ->where('item_id', $item->id)
+            ->firstOrFail();
+    }
+
+    private function getMatchingOrderItemProcesses(OrderItem $orderItem, Collection $allPrerequisites): Collection
+    {
+        return $orderItem->processes()
+            ->whereIn('order_item_process.id', $allPrerequisites->pluck('id'))
+            ->get();
+    }
+
+    private function getIncompleteItemProcesses(Collection $processes): Collection
+    {
+        return $processes->where('pivot.completed_at', null);
     }
 }

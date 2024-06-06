@@ -13,6 +13,7 @@ it('throws a validation exception if a process has incomplete prerequisites', fu
     $item = Item::factory()->create();
     $prerequisite = Process::factory()->create();
     $process = Process::factory()->create();
+
     $process->prerequisiteProcesses()->sync($prerequisite);
     $orderItem = OrderItem::make();
     $orderItem->order()->associate($order);
