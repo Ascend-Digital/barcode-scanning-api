@@ -16,8 +16,7 @@ class OrderItem extends Model
 
     public function processes(): BelongsToMany
     {
-        return $this->belongsToMany(Process::class, 'order_item_process', 'order_item_id')
-            ->withPivot('completed_at');
+        return $this->belongsToMany(Process::class)->withPivot('completed_at');
     }
 
     public function item(): BelongsTo

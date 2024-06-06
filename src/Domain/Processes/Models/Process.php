@@ -66,9 +66,9 @@ class Process extends Model implements ScannableModel
         return $this->belongsToMany(Process::class, 'prerequisite_process', 'process_id', 'prerequisite_id');
     }
 
-    public function orderItems()
+    public function orderItems(): BelongsToMany
     {
-        return $this->belongsToMany(OrderItem::class, 'order_item_process', 'process_id', 'order_item_id');
+        return $this->belongsToMany(OrderItem::class);
     }
 
     public function fromStatus()
