@@ -2,6 +2,9 @@
 
 namespace Domain\Orders\Policies;
 
+use Domain\Orders\Models\Order;
+use Domain\Users\Models\User;
+
 class OrderPolicy
 {
     public function viewAny(User $user): bool
