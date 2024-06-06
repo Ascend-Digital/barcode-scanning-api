@@ -8,6 +8,7 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ItemFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
+use Domain\Processes\Models\Process;
 use Domain\Warehouses\Models\StorageLocation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -73,7 +74,7 @@ class Item extends Model implements ResourcableModel, ScannableModel
 
     public function processes(): BelongsToMany
     {
-        return $this->belongsToMany(Process::class)->using(ItemProcess::class);
+        return $this->belongsToMany(Process::class);
     }
 
     public function getCompanyId(): int

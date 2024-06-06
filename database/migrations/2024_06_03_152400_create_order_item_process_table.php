@@ -11,10 +11,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_item_process', function (Blueprint $table) {
-            $table->id();
             $table->foreignIdFor(OrderItem::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Process::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->timestamp('completed_at')->nullable();
+            $table->timestamp('completed_at');
+            $table->primary(['order_item_id', 'process_id']);
         });
     }
 
