@@ -71,8 +71,6 @@ class Process extends Model implements ScannableModel
         return $this->belongsToMany(OrderItem::class, 'order_item_process', 'process_id', 'order_item_id');
     }
 
-    // belongs to an order through items?
-
     public function fromStatus()
     {
         return $this->belongsTo(Status::class, 'from_status');

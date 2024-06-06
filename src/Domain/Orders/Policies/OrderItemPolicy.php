@@ -11,4 +11,9 @@ class OrderItemPolicy
     {
         return true;
     }
+
+    public function update(User $user, OrderItem $orderItem): bool
+    {
+        return false;
+    }
 }
