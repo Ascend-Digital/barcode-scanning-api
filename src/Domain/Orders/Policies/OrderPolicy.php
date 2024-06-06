@@ -2,29 +2,32 @@
 
 namespace Domain\Orders\Policies;
 
+use Domain\Orders\Models\Order;
+use Domain\Users\Models\User;
+
 class OrderPolicy
 {
-    public function viewAny(): bool
+    public function viewAny(User $user): bool
     {
         return true;
     }
 
-    public function view(): bool
+    public function view(User $user, Order $order): bool
     {
         return true;
     }
 
-    public function create(): bool
+    public function create(User $user): bool
     {
         return false;
     }
 
-    public function update(): bool
+    public function update(User $user, Order $order): bool
     {
         return false;
     }
 
-    public function delete(): bool
+    public function delete(User $user, Order $order): bool
     {
         return false;
     }
