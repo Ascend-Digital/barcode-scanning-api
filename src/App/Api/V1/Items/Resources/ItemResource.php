@@ -2,6 +2,7 @@
 
 namespace App\Api\V1\Items\Resources;
 
+use App\Api\V1\Barcodes\Resources\ScannableActionResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,7 +15,16 @@ class ItemResource extends JsonResource
             'type' => 'Item',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => [],
+            'actions' => ScannableActionResource::collection($this->actions(
+                // TODO Remove commented-out code which illustrates how this will work when endpoints are added
+                /*
+                [
+                    'order' =>
+                    'workstation' =>
+
+                ]
+                */
+            )),
         ];
     }
 }
