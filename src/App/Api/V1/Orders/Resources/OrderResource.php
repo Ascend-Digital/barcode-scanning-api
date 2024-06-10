@@ -13,20 +13,8 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'type' => 'Order',
-            'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
             'actions' => $this->availableActions(),
-        ];
-    }
-
-    private function availableActions(): array
-    {
-        return [
-            [
-                'name' => 'Pick from storage location',
-                //                'endpoint' => route('storage-locations.item.pick')
-            ],
-
         ];
     }
 }

@@ -13,7 +13,7 @@ class StaffMemberResource extends JsonResource
         return [
             'id' => $this->id,
             'type' => 'StaffMember',
-            'name' => $this->name,
+            'name' => $this->user->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
             'actions' => $this->availableActions(),
         ];

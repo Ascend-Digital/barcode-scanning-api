@@ -15,19 +15,7 @@ class WorkstationResource extends JsonResource
             'type' => 'Workstation',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions(),
-        ];
-    }
-
-    private function availableActions(): array
-    {
-        return [
-            /*
-            [
-                'name' => 'Pick from storage location',
-                'endpoint' => route('storage-locations.item.pick')
-            ],
-            */
+            'actions' => $this->availableActions($this->id),
         ];
     }
 }
