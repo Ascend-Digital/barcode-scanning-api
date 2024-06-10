@@ -2,6 +2,7 @@
 
 namespace Domain\Orders\Models;
 
+use App\Api\V1\Orders\Resources\OrderResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\OrderFactory;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Support\Contracts\ResourcableModel;
 
 /**
  * @property int $id
@@ -36,7 +38,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Eloquent
  */
-class Order extends Model implements ScannableModel
+class Order extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
@@ -59,5 +61,10 @@ class Order extends Model implements ScannableModel
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function toResource(): OrderResource
+    {
+        return new OrderResource($this);
     }
 }
