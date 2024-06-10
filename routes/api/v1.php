@@ -9,4 +9,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/barcodes/{barcode:barcode}', ScanBarcodeController::class)->name('barcodes.scan')->middleware(LogScan::class);
+Route::get('/barcodes/{barcode:barcode}', ScanBarcodeController::class)->name('barcodes.scan');
