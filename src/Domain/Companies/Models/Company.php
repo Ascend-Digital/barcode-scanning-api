@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property Carbon|null $created_at
@@ -44,7 +46,6 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $warehouses_count
  * @property-read Collection<int, Workstation> $workstations
  * @property-read int|null $workstations_count
- *
  * @method static CompanyFactory factory($count = null, $state = [])
  * @method static Builder|Company newModelQuery()
  * @method static Builder|Company newQuery()
@@ -53,8 +54,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Company whereId($value)
  * @method static Builder|Company whereName($value)
  * @method static Builder|Company whereUpdatedAt($value)
- *
  * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class Company extends Model
 {

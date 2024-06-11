@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property int $company_id
@@ -29,7 +31,6 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $processes_with_from_status_count
  * @property-read Collection<int, Process> $processesWithToStatus
  * @property-read int|null $processes_with_to_status_count
- *
  * @method static StatusFactory factory($count = null, $state = [])
  * @method static Builder|Status newModelQuery()
  * @method static Builder|Status newQuery()
@@ -39,8 +40,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Status whereId($value)
  * @method static Builder|Status whereName($value)
  * @method static Builder|Status whereUpdatedAt($value)
- *
  * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class Status extends Model
 {

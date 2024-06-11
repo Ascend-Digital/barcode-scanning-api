@@ -15,6 +15,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Support\Contracts\ResourcableModel;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property int $company_id
@@ -25,7 +27,6 @@ use Support\Contracts\ResourcableModel;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Process> $processes
  * @property-read int|null $processes_count
  * @property-read \Domain\Warehouses\Models\Warehouse $warehouse
- *
  * @method static \Database\Factories\WorkstationFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Workstation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Workstation newQuery()
@@ -36,7 +37,7 @@ use Support\Contracts\ResourcableModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Workstation whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Workstation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Workstation whereWarehouseId($value)
- *
+ * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
  * @mixin \Eloquent
  */
 class Workstation extends Model implements ResourcableModel, ScannableModel

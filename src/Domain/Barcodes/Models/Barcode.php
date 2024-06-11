@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 
 /**
+ * 
+ *
  * @property int $id
  * @property int $company_id
  * @property string $owner_type
@@ -22,7 +24,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Company $company
  * @property-read ScannableModel $owner
- *
  * @method static BarcodeFactory factory($count = null, $state = [])
  * @method static Builder|Barcode newModelQuery()
  * @method static Builder|Barcode newQuery()
@@ -33,8 +34,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Barcode whereOwnerId($value)
  * @method static Builder|Barcode whereOwnerType($value)
  * @method static Builder|Barcode whereUpdatedAt($value)
- *
  * @mixin Eloquent
+ * @property string $barcode
+ * @method static Builder|Barcode whereBarcode($value)
+ * @mixin \Eloquent
  */
 class Barcode extends Model
 {

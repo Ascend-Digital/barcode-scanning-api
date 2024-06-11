@@ -22,6 +22,8 @@ use Illuminate\Support\Carbon;
 use Support\Contracts\ResourcableModel;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property int $company_id
@@ -34,7 +36,6 @@ use Support\Contracts\ResourcableModel;
  * @property-read Status $toStatus
  * @property-read Collection<int, Workstation> $workstations
  * @property-read int|null $workstations_count
- *
  * @method static ProcessFactory factory($count = null, $state = [])
  * @method static Builder|Process newModelQuery()
  * @method static Builder|Process newQuery()
@@ -46,8 +47,11 @@ use Support\Contracts\ResourcableModel;
  * @method static Builder|Process whereName($value)
  * @method static Builder|Process whereToStatus($value)
  * @method static Builder|Process whereUpdatedAt($value)
- *
  * @mixin Eloquent
+ * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
+ * @property-read Collection<int, Process> $prerequisiteProcesses
+ * @property-read int|null $prerequisite_processes_count
+ * @mixin \Eloquent
  */
 class Process extends Model implements ResourcableModel, ScannableModel
 {

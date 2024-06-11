@@ -12,13 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Company> $companies
  * @property-read int|null $companies_count
- *
  * @method static SubscriptionFactory factory($count = null, $state = [])
  * @method static Builder|Subscription newModelQuery()
  * @method static Builder|Subscription newQuery()
@@ -27,8 +28,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Subscription whereId($value)
  * @method static Builder|Subscription whereName($value)
  * @method static Builder|Subscription whereUpdatedAt($value)
- *
  * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class Subscription extends Model
 {

@@ -18,6 +18,8 @@ use Illuminate\Support\Carbon;
 use Support\Contracts\ResourcableModel;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property int $company_id
@@ -26,7 +28,6 @@ use Support\Contracts\ResourcableModel;
  * @property Carbon|null $updated_at
  * @property-read Company $company
  * @property-read Warehouse $warehouse
- *
  * @method static StorageLocationFactory factory($count = null, $state = [])
  * @method static Builder|StorageLocation newModelQuery()
  * @method static Builder|StorageLocation newQuery()
@@ -37,8 +38,11 @@ use Support\Contracts\ResourcableModel;
  * @method static Builder|StorageLocation whereName($value)
  * @method static Builder|StorageLocation whereUpdatedAt($value)
  * @method static Builder|StorageLocation whereWarehouseId($value)
- *
  * @mixin Eloquent
+ * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Item> $items
+ * @property-read int|null $items_count
+ * @mixin \Eloquent
  */
 class StorageLocation extends Model implements ResourcableModel, ScannableModel
 {

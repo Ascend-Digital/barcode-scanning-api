@@ -18,6 +18,8 @@ use Illuminate\Support\Carbon;
 use Support\Contracts\ResourcableModel;
 
 /**
+ * 
+ *
  * @property int $id
  * @property int $company_id
  * @property int $status_id
@@ -25,7 +27,6 @@ use Support\Contracts\ResourcableModel;
  * @property Carbon|null $updated_at
  * @property-read Company $company
  * @property-read Status $status
- *
  * @method static OrderFactory factory($count = null, $state = [])
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
@@ -35,8 +36,9 @@ use Support\Contracts\ResourcableModel;
  * @method static Builder|Order whereId($value)
  * @method static Builder|Order whereStatusId($value)
  * @method static Builder|Order whereUpdatedAt($value)
- *
  * @mixin Eloquent
+ * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
+ * @mixin \Eloquent
  */
 class Order extends Model implements ResourcableModel, ScannableModel
 {

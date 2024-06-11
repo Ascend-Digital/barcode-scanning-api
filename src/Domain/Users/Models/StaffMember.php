@@ -13,6 +13,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Support\Contracts\ResourcableModel;
 
 /**
+ * 
+ *
  * @property int $id
  * @property int $user_id
  * @property int $company_id
@@ -20,7 +22,6 @@ use Support\Contracts\ResourcableModel;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Company $company
  * @property-read \Domain\Users\Models\User $user
- *
  * @method static \Database\Factories\StaffMemberFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember newQuery()
@@ -30,7 +31,7 @@ use Support\Contracts\ResourcableModel;
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember whereUserId($value)
- *
+ * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
  * @mixin \Eloquent
  */
 class StaffMember extends Model implements ResourcableModel, ScannableModel
