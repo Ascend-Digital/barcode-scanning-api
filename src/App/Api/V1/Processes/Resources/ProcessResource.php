@@ -18,16 +18,4 @@ class ProcessResource extends JsonResource
             'actions' => [],
         ];
     }
-
-    //    private function availableActions(): array
-    //    {
-    //        return [
-    //            /*
-    //            [
-    //                'name' => 'Pick from storage location',
-    //                'endpoint' => route('storage-locations.item.pick')
-    //            ],
-    //            */
-    //        ];
-    //    }
 }

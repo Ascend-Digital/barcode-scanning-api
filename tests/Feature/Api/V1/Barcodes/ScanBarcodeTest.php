@@ -23,7 +23,6 @@ use Illuminate\Testing\Fluent\AssertableJson;
 uses(RefreshDatabase::class);
 
 it('returns the correct resource when a barcode is scanned', function (Collection $scannedEntities, $type, $resource) {
-
     foreach ($scannedEntities as $scannedEntity) {
         $response = $this
             ->getJson(route('barcodes.scan', ['barcode' => $scannedEntity->barcode->barcode]))
@@ -36,7 +35,6 @@ it('returns the correct resource when a barcode is scanned', function (Collectio
 
         $this->assertJsonResponseContent($resource::make($scannedEntity), $response);
     }
-
 })->with([
     [fn () => Item::factory(5)->create(), 'type' => 'Item', 'resource' => ItemResource::class],
     [fn () => Warehouse::factory(5)->create(), 'type' => 'Warehouse', 'resource' => WarehouseResource::class],

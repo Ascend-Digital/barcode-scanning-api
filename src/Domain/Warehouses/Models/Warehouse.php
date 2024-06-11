@@ -66,9 +66,4 @@ class Warehouse extends Model implements ResourcableModel, ScannableModel
     {
         return new WarehouseResource($this);
     }
-
-    //    public function availableActions(): array
-    //    {
-    //        // TODO: Implement availableActions() method.
-    //    }
 }
