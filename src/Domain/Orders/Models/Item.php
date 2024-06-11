@@ -71,13 +71,13 @@ class Item extends Model implements ResourcableModel, ScannableModel
         return $this->hasMany(OrderItem::class);
     }
 
-    public function toResource(): ItemResource
-    {
-        return new ItemResource($this);
-    }
-
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function toResource(): ItemResource
+    {
+        return new ItemResource($this);
     }
 }
