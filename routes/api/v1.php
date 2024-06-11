@@ -1,7 +1,6 @@
 <?php
 
 use App\Api\V1\Barcodes\Controllers\ScanBarcodeController;
-use App\Http\Middleware\LogScan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
