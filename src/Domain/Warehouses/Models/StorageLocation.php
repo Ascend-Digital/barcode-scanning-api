@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 use Support\Contracts\ResourcableModel;
@@ -65,7 +66,7 @@ class StorageLocation extends Model implements ResourcableModel, ScannableModel
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function items()
+    public function items(): BelongsToMany
     {
         return $this->belongsToMany(Item::class);
     }
