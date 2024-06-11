@@ -25,7 +25,7 @@ uses(RefreshDatabase::class);
 it('returns the correct resource when a barcode is scanned', function (Collection $scannedEntities, $type, $resource) {
     foreach ($scannedEntities as $scannedEntity) {
         $response = $this
-            ->getJson(route('barcodes.scan', ['barcode' => $scannedEntity->barcode->barcode]))
+            ->getJson(route('api.v1.barcodes.scan', ['barcode' => $scannedEntity->barcode->barcode]))
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => $json
                 ->where('data.type', $type)
