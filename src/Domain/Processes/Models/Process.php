@@ -2,21 +2,25 @@
 
 namespace Domain\Processes\Models;
 
+use App\Api\V1\Processes\Resources\ProcessResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
+use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
 use Domain\Orders\Models\OrderItem;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
+use Support\Contracts\ResourcableModel;
 
 /**
  * @property int $id
@@ -45,8 +49,12 @@ use Illuminate\Support\Collection;
  * @method static Builder|Process whereUpdatedAt($value)
  *
  * @mixin Eloquent
+ *
+ * @property-read Barcode|null $barcode
+ * @property-read Collection<int, Process> $prerequisiteProcesses
+ * @property-read int|null $prerequisite_processes_count
  */
-class Process extends Model implements ScannableModel
+class Process extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
@@ -84,5 +92,10 @@ class Process extends Model implements ScannableModel
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function toResource(): JsonResource
+    {
+        return new ProcessResource($this);
     }
 }

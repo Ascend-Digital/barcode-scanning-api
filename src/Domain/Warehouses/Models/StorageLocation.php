@@ -2,18 +2,23 @@
 
 namespace Domain\Warehouses\Models;
 
+use App\Api\V1\StorageLocations\Resources\StorageLocationResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\StorageLocationFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
+use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
 use Domain\Orders\Models\Item;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use Support\Contracts\ResourcableModel;
 
 /**
  * @property int $id
@@ -23,7 +28,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Company $company
- * @property-read \Domain\Warehouses\Models\Warehouse $warehouse
+ * @property-read Warehouse $warehouse
  *
  * @method static StorageLocationFactory factory($count = null, $state = [])
  * @method static Builder|StorageLocation newModelQuery()
@@ -37,8 +42,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|StorageLocation whereWarehouseId($value)
  *
  * @mixin Eloquent
+ *
+ * @property-read Barcode|null $barcode
+ * @property-read Collection<int, Item> $items
+ * @property-read int|null $items_count
  */
-class StorageLocation extends Model implements ScannableModel
+class StorageLocation extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
@@ -65,5 +74,10 @@ class StorageLocation extends Model implements ScannableModel
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function toResource(): JsonResource
+    {
+        return new StorageLocationResource($this);
     }
 }

@@ -41,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Status whereUpdatedAt($value)
  *
  * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class Status extends Model
 {

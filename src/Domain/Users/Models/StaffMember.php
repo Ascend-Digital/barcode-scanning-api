@@ -2,12 +2,15 @@
 
 namespace Domain\Users\Models;
 
+use App\Api\V1\Users\Resources\StaffMemberResource;
 use App\Shared\Traits\Scannable;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Support\Contracts\ResourcableModel;
 
 /**
  * @property int $id
@@ -28,9 +31,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember whereUserId($value)
  *
- * @mixin \Eloquent
+ * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
  */
-class StaffMember extends Model implements ScannableModel
+class StaffMember extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
@@ -48,5 +51,10 @@ class StaffMember extends Model implements ScannableModel
     public function getCompanyId(): int
     {
         return $this->company_id;
+    }
+
+    public function toResource(): JsonResource
+    {
+        return new StaffMemberResource($this);
     }
 }
