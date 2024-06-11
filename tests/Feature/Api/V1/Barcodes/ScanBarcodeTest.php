@@ -9,7 +9,7 @@ use App\Api\V1\StorageLocations\Resources\StorageLocationResource;
 use App\Api\V1\Users\Resources\StaffMemberResource;
 use App\Api\V1\Warehouses\Resources\WarehouseResource;
 use App\Api\V1\Warehouses\Resources\WorkstationResource;
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Users\Models\StaffMember;

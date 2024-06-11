@@ -47,7 +47,7 @@ use Support\Contracts\ResourcableModel;
  * @property-read Collection<int, StorageLocation> $storageLocations
  * @property-read int|null $storage_locations_count
  */
-class Item extends Model implements ScannableModel, ResourcableModel
+class Item extends Model implements ResourcableModel, ScannableModel
 {
     use HasFactory;
     use Scannable;
