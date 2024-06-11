@@ -20,7 +20,7 @@ class StorageLocationResource extends JsonResource
             'type' => 'StorageLocation',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions(),
+            'actions' => [],
         ];
     }
 }

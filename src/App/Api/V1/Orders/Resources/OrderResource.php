@@ -14,7 +14,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'type' => 'Order',
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions(),
+            'actions' => [],
         ];
     }
 }

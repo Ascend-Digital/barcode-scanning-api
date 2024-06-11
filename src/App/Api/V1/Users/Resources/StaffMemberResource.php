@@ -15,7 +15,7 @@ class StaffMemberResource extends JsonResource
             'type' => 'StaffMember',
             'name' => $this->user->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions(),
+            'actions' => [],
         ];
     }
 }

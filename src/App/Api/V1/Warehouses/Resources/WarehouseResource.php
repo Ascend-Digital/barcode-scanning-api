@@ -14,7 +14,7 @@ class WarehouseResource extends JsonResource
             'type' => 'Warehouse',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions(),
+            'actions' => [],
         ];
     }
 }

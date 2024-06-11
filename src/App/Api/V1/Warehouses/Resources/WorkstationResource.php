@@ -15,7 +15,7 @@ class WorkstationResource extends JsonResource
             'type' => 'Workstation',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => $this->availableActions($this->id),
+            'actions' => [],
         ];
     }
 }
