@@ -22,8 +22,10 @@ use Illuminate\Testing\Fluent\AssertableJson;
 
 uses(RefreshDatabase::class);
 
-it('returns the correct resource when a barcode is scanned', function (Collection $scannedEntities, $type, $resource) {
+it('returns the correct resource when a barcode is scanned', function (Collection $scannedEntities, $resource) {
     foreach ($scannedEntities as $scannedEntity) {
+        $type = str_replace('Resource', '', last(explode('\\', $resource)));
+
         $response = $this
             ->getJson(route('api.v1.barcodes.scan', ['barcode' => $scannedEntity->barcode->barcode]))
             ->assertOk()
@@ -36,11 +38,11 @@ it('returns the correct resource when a barcode is scanned', function (Collectio
         $this->assertJsonResponseContent($resource::make($scannedEntity), $response);
     }
 })->with([
-    [fn () => Item::factory(5)->create(), 'type' => 'Item', 'resource' => ItemResource::class],
-    [fn () => Warehouse::factory(5)->create(), 'type' => 'Warehouse', 'resource' => WarehouseResource::class],
-    [fn () => StorageLocation::factory(5)->create(), 'type' => 'StorageLocation', 'resource' => StorageLocationResource::class],
-    [fn () => Workstation::factory(5)->create(), 'type' => 'Workstation', 'resource' => WorkstationResource::class],
-    [fn () => Process::factory(5)->create(), 'type' => 'Process', 'resource' => ProcessResource::class],
-    [fn () => StaffMember::factory(5)->create(), 'type' => 'StaffMember', 'resource' => StaffMemberResource::class],
-    [fn () => Order::factory(5)->create(), 'type' => 'Order', 'resource' => OrderResource::class],
+    [fn () => Item::factory(5)->create(), 'resource' => ItemResource::class],
+    [fn () => Warehouse::factory(5)->create(), 'resource' => WarehouseResource::class],
+    [fn () => StorageLocation::factory(5)->create(), 'resource' => StorageLocationResource::class],
+    [fn () => Workstation::factory(5)->create(), 'resource' => WorkstationResource::class],
+    [fn () => Process::factory(5)->create(), 'resource' => ProcessResource::class],
+    [fn () => StaffMember::factory(5)->create(), 'resource' => StaffMemberResource::class],
+    [fn () => Order::factory(5)->create(), 'resource' => OrderResource::class],
 ]);
