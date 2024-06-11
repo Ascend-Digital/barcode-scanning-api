@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Statuses\Models\Status;
@@ -13,6 +13,7 @@ use Domain\Warehouses\Models\Warehouse;
 use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +33,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             return '\Database\Factories\\'.class_basename($modelName).'Factory';
+        });
+
+        Gate::before(function (User $user) {
+            if (str_ends_with($user->email, '@ascend.agency')) {
+                return true;
+            }
         });
 
         Relation::enforceMorphMap([

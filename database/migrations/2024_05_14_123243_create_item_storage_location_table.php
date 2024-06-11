@@ -1,6 +1,6 @@
 <?php
 
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Domain\Warehouses\Models\StorageLocation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

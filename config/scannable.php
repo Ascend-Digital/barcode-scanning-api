@@ -1,6 +1,6 @@
 <?php
 
-use Domain\Items\Models\Item;
+use Domain\Orders\Models\Item;
 use Domain\Processes\Models\Process;
 use Domain\Users\Models\StaffMember;
 use Domain\Warehouses\Models\StorageLocation;
