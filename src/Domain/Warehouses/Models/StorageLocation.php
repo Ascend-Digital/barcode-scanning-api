@@ -59,15 +59,14 @@ class StorageLocation extends Model implements ResourcableModel, ScannableModel
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function getCompanyId(): int
-    {
-        return $this->company_id;
-    }
-
     public function items()
     {
         return $this->belongsToMany(Item::class);
+    }
 
+    public function getCompanyId(): int
+    {
+        return $this->company_id;
     }
 
     public function toResource(): JsonResource
