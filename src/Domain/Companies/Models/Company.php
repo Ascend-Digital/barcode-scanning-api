@@ -55,7 +55,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Company whereUpdatedAt($value)
  *
  * @mixin Eloquent
- * @mixin \Eloquent
  */
 class Company extends Model
 {

@@ -29,7 +29,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Subscription whereUpdatedAt($value)
  *
  * @mixin Eloquent
- * @mixin \Eloquent
  */
 class Subscription extends Model
 {

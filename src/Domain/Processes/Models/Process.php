@@ -7,6 +7,7 @@ use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProcessFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
+use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
 use Domain\Orders\Models\OrderItem;
 use Domain\Statuses\Models\Status;
@@ -49,11 +50,9 @@ use Support\Contracts\ResourcableModel;
  *
  * @mixin Eloquent
  *
- * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
+ * @property-read Barcode|null $barcode
  * @property-read Collection<int, Process> $prerequisiteProcesses
  * @property-read int|null $prerequisite_processes_count
- *
- * @mixin \Eloquent
  */
 class Process extends Model implements ResourcableModel, ScannableModel
 {

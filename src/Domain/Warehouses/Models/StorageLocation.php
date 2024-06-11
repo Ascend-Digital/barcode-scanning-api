@@ -7,9 +7,11 @@ use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\StorageLocationFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
+use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
 use Domain\Orders\Models\Item;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -40,11 +42,9 @@ use Support\Contracts\ResourcableModel;
  *
  * @mixin Eloquent
  *
- * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Item> $items
+ * @property-read Barcode|null $barcode
+ * @property-read Collection<int, Item> $items
  * @property-read int|null $items_count
- *
- * @mixin \Eloquent
  */
 class StorageLocation extends Model implements ResourcableModel, ScannableModel
 {

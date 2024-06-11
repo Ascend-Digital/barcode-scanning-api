@@ -36,8 +36,6 @@ use Support\Contracts\ResourcableModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Warehouse whereUpdatedAt($value)
  *
  * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
- *
- * @mixin \Eloquent
  */
 class Warehouse extends Model implements ResourcableModel, ScannableModel
 {

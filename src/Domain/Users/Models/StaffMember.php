@@ -32,8 +32,6 @@ use Support\Contracts\ResourcableModel;
  * @method static \Illuminate\Database\Eloquent\Builder|StaffMember whereUserId($value)
  *
  * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
- *
- * @mixin \Eloquent
  */
 class StaffMember extends Model implements ResourcableModel, ScannableModel
 {

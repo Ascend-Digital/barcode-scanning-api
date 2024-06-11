@@ -7,6 +7,7 @@ use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\OrderFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
+use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
 use Domain\Statuses\Models\Status;
 use Illuminate\Database\Eloquent\Builder;
@@ -38,9 +39,7 @@ use Support\Contracts\ResourcableModel;
  *
  * @mixin Eloquent
  *
- * @property-read \Domain\Barcodes\Models\Barcode|null $barcode
- *
- * @mixin \Eloquent
+ * @property-read Barcode|null $barcode
  */
 class Order extends Model implements ResourcableModel, ScannableModel
 {

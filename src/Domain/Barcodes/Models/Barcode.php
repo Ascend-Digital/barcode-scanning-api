@@ -4,7 +4,7 @@ namespace Domain\Barcodes\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\BarcodeFactory;
-use Domain\Codes\Contracts\ScannableModel;
+use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,8 +39,6 @@ use Illuminate\Support\Carbon;
  * @property string $barcode
  *
  * @method static Builder|Barcode whereBarcode($value)
- *
- * @mixin \Eloquent
  */
 class Barcode extends Model
 {
