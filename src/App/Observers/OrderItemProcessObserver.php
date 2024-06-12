@@ -23,10 +23,13 @@ class OrderItemProcessObserver
         try {
             (new EnsureProcessCanBePerformed())->execute($orderItem, $process);
         } catch (IncompleteProcessException $exception) {
+            // display the message to the user
             abort(500, $exception->getMessage());
         }
 
         $order = Order::find($orderItem->order_id);
         $order->status()->associate($process->to_status);
     }
+
+    // TODO e2e test of this
 }
