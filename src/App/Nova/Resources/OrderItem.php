@@ -4,6 +4,7 @@ namespace App\Nova\Resources;
 
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -25,7 +26,12 @@ class OrderItem extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Order'),
             BelongsTo::make('Item'),
-            BelongsToMany::make('Processes', 'processes', Process::class),
+            BelongsToMany::make('Completed Processes', 'processes', Process::class)
+                ->fields(function () {
+                    return [
+                        DateTime::make('Completed At')->withMeta(['extraAttributes' => ['readonly' => true]])->default(now()),
+                    ];
+                }),
         ];
     }
 }

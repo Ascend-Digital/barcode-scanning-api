@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
@@ -31,5 +32,18 @@ class Process extends Resource
             BelongsTo::make('To Status', 'toStatus', Status::class),
             BelongsToMany::make('Prerequisite Processes', 'prerequisiteProcesses', Process::class),
         ];
+    }
+
+    public static function relatableQuery(NovaRequest $request, $query): Builder
+    {
+        if ($request->resource() === OrderItem::class) {
+            $orderItem = $request->findResourceOrFail();
+            $orderItemProcesses = $orderItem->item()->sole()->processes();
+
+            return $query->whereIn('id', $orderItemProcesses->pluck('id'));
+        }
+
+        return parent::relatableQuery($request, $query);
+
     }
 }

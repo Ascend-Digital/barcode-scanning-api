@@ -2,6 +2,7 @@
 
 namespace Domain\Processes\Models;
 
+use App\Api\V1\Processes\Resources\ProcessCollection;
 use App\Api\V1\Processes\Resources\ProcessResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
@@ -9,6 +10,7 @@ use Database\Factories\ProcessFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Barcodes\Models\Barcode;
 use Domain\Companies\Models\Company;
+use Domain\Orders\Models\Item;
 use Domain\Orders\Models\OrderItem;
 use Domain\Statuses\Models\Status;
 use Domain\Warehouses\Models\Workstation;
@@ -51,7 +53,6 @@ use Support\Contracts\ResourcableModel;
  * @mixin Eloquent
  *
  * @property-read Barcode|null $barcode
- * @property-read Collection<int, Process> $prerequisiteProcesses
  * @property-read int|null $prerequisite_processes_count
  */
 class Process extends Model implements ResourcableModel, ScannableModel
@@ -62,6 +63,11 @@ class Process extends Model implements ResourcableModel, ScannableModel
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class);
     }
 
     public function workstations(): BelongsToMany
@@ -87,6 +93,23 @@ class Process extends Model implements ResourcableModel, ScannableModel
     public function toStatus()
     {
         return $this->belongsTo(Status::class, 'to_status');
+    }
+
+    public function newCollection(array $models = []): ProcessCollection
+    {
+        return new ProcessCollection($models);
+    }
+
+    // TODO check for n+1s, implement caching if needed
+    public function retrieveAllPrerequisites(): ProcessCollection
+    {
+        $this->loadMissing('prerequisiteProcesses');
+
+        return new ProcessCollection($this->prerequisiteProcesses
+            ->flatMap(fn ($prerequisite) => $prerequisite
+                ->retrieveAllPrerequisites()
+                ->unique()
+                ->push($prerequisite)));
     }
 
     public function getCompanyId(): int
