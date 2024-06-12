@@ -13,7 +13,7 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         $companies = Company::all();
-        $items = Item::all();
+        $items = Item::factory(100)->create();
 
         foreach ($companies as $company) {
             Status::factory()

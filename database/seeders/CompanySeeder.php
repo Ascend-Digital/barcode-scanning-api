@@ -13,7 +13,6 @@ class CompanySeeder extends Seeder
     public function run(): void
     {
         Company::factory(50)
-            ->hasItems(60)
             ->hasStaffMembers(5)
             ->createQuietly();
     }
