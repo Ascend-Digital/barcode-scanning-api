@@ -53,6 +53,8 @@ class Item extends Model implements ResourcableModel, ScannableModel
     use HasFactory;
     use Scannable;
 
+    protected $with = ['storageLocations'];
+
     protected $fillable = [
         'name',
     ];

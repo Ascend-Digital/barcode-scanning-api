@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Api\V1\Processes\Resources\ProcessCollection;
+use Domain\Processes\Models\ProcessCollection;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

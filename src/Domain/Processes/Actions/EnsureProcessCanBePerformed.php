@@ -2,9 +2,9 @@
 
 namespace Domain\Processes\Actions;
 
-use App\Api\V1\Processes\Resources\ProcessCollection;
 use Domain\Orders\Models\OrderItem;
 use Domain\Processes\Models\Process;
+use Domain\Processes\Models\ProcessCollection;
 use Illuminate\Support\Collection;
 use Throwable;
 

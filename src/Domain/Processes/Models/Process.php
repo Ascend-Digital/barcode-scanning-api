@@ -2,7 +2,6 @@
 
 namespace Domain\Processes\Models;
 
-use App\Api\V1\Processes\Resources\ProcessCollection;
 use App\Api\V1\Processes\Resources\ProcessResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
@@ -85,12 +84,12 @@ class Process extends Model implements ResourcableModel, ScannableModel
         return $this->belongsToMany(OrderItem::class);
     }
 
-    public function fromStatus()
+    public function fromStatus(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'from_status');
     }
 
-    public function toStatus()
+    public function toStatus(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'to_status');
     }
