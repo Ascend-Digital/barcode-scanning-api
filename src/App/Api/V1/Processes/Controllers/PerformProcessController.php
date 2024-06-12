@@ -24,9 +24,10 @@ class PerformProcessController
 
         $performProcessAction->execute($orderItem, $process);
 
-        $orderItem->processes()->attach($orderItem, ['completed_at' => now()]);
+        $orderItem->processes()->attach($process, ['completed_at' => now()]);
+
         $order->status()->associate($process->to_status);
 
-        return response()->json(['message' => 'success'], 201);
+        return response()->json(['success' => 'true'], 201);
     }
 }
