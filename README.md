@@ -9,7 +9,7 @@ need to ensure that you have Docker installed and running on your machine.
 
 1. Copy the example environment file:
 ```shell
-cp .env.example.env
+cp .env.example .env
 ```
 
 2. Install Composer dependencies:
