@@ -16,8 +16,16 @@ class PerformProcessController
     /**
      * @throws Throwable
      */
-    public function __invoke(Order $order, Item $item, Process $process, EnsureProcessCanBePerformed $ensureProcessCanBePerformed, PerformProcess $performProcess): JsonResponse // TODO DTO
+    public function __invoke(
+        Order $order,
+        Item $item,
+        Process $process,
+        EnsureProcessCanBePerformed $ensureProcessCanBePerformed,
+        PerformProcess $performProcess): JsonResponse
     {
+        /**
+         * @var $orderItem OrderItem
+         */
         $orderItem = OrderItem::with('order', 'item')
             ->where('order_id', $order->id)
             ->where('item_id', $item->id)
@@ -25,10 +33,6 @@ class PerformProcessController
 
         $ensureProcessCanBePerformed->execute($orderItem, $process);
         $performProcess->execute($orderItem, $process, $order);
-
-        $orderItem->processes()->attach($process, ['completed_at' => now()]);
-
-        $order->status()->associate($process->to_status);
 
         return response()->json(['success' => 'true'], 201);
     }
