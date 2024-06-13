@@ -3,23 +3,22 @@
 namespace App\Providers;
 
 use App\Nova\Dashboards\Main;
+use App\Observers\OrderItemProcessObserver;
+use Domain\Orders\Models\OrderItemProcess;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Laravel\Nova\Observable;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         parent::boot();
+
+        Observable::make(OrderItemProcess::class, OrderItemProcessObserver::class);
     }
 
-    /**
-     * Register the Nova routes.
-     */
     protected function routes(): void
     {
         Nova::routes()

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
 use Domain\Orders\Models\OrderItem;
+use Domain\Orders\Models\OrderItemProcess;
 use Domain\Processes\Models\Process;
 use Domain\Statuses\Models\Status;
 use Domain\Users\Models\StaffMember;
@@ -53,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
             'user' => User::class,
             'status' => Status::class,
             'order_item' => OrderItem::class,
+            'order_item_process' => OrderItemProcess::class,
         ]);
 
     }
