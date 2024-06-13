@@ -12,7 +12,7 @@ class ScannableActionSeeder extends Seeder
         $actions = [
             [
                 'title' => 'Pick from storage location',
-                'endpoint' => 'api.v1.barcodes.scan',
+                'endpoint' => null,
                 'method' => 'POST',
                 'owner_type' => 'item',
             ],
