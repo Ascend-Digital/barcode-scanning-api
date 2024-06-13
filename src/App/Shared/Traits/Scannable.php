@@ -2,8 +2,10 @@
 
 namespace App\Shared\Traits;
 
+use App\Shared\Urls\UrlGenerator;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Barcodes\Models\Barcode;
+use Domain\Barcodes\Models\ScannableAction;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\UniqueConstraintViolationException;
 
@@ -31,5 +33,20 @@ trait Scannable
     public function barcode(): MorphOne
     {
         return $this->morphOne(Barcode::class, 'owner');
+    }
+
+    public function actions(?array $params = null)
+    {
+        return ScannableAction::where('owner_type', $this->getMorphClass())
+            ->get()
+            ->map(function (ScannableAction $action) use ($params) {
+                if ($action->endpoint !== null) {
+                    $action->endpoint = UrlGenerator::generateActionUrl($action, $params);
+                }
+
+                return $action;
+            })->reject(function (ScannableAction $action) {
+                return $action->method !== null && $action->endpoint === null;
+            });
     }
 }

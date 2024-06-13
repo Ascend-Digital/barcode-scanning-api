@@ -2,6 +2,7 @@
 
 namespace App\Api\V1\Orders\Resources;
 
+use App\Api\V1\Barcodes\Resources\ScannableActionResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -14,7 +15,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'type' => 'Order',
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => [],
+            'actions' => ScannableActionResource::collection($this->actions()),
         ];
     }
 }
