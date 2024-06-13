@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('performs a process on the correct order item', function () {
-    \Illuminate\Support\Carbon::setTestNow(Carbon::parse('2024-06-12 12:00:00'));
+    Carbon::setTestNow(Carbon::parse('2024-06-12 12:00:00'));
     $order = Order::factory()->create();
     $item = Item::factory()->create();
 
