@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Observers\OrderItemProcessObserver;
 use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
 use Domain\Orders\Models\OrderItem;
@@ -34,8 +33,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        OrderItemProcess::observe(OrderItemProcessObserver::class);
-
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             return '\Database\Factories\\'.class_basename($modelName).'Factory';
         });

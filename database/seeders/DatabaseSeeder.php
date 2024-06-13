@@ -18,6 +18,5 @@ class DatabaseSeeder extends Seeder
             BarcodeSeeder::class,
             ScannableActionSeeder::class,
         ]);
-
     }
 }

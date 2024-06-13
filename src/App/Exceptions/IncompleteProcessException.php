@@ -15,7 +15,6 @@ class IncompleteProcessException extends Exception
             message: 'The following prerequisites are incomplete: '.$this->prerequisites->implode('name', ', '),
             code: 422
         );
-
     }
 
     public function render(Request $request): JsonResponse
