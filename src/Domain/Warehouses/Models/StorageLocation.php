@@ -68,7 +68,10 @@ class StorageLocation extends Model implements ResourcableModel, ScannableModel
 
     public function items(): BelongsToMany
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(Item::class)->withPivot(
+            // TODO Some of these pivot fields may be removed when logging is added
+            'last_picked_at', 'last_placed_at', 'last_picked_quantity', 'last_placed_quantity', 'quantity'
+        );
     }
 
     public function getCompanyId(): int
