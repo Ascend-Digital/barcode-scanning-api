@@ -67,7 +67,7 @@ class ScannableActionSeeder extends Seeder
             [
                 'title' => 'A process action',
                 'endpoint' => null,
-                'method' => 'POST',
+                'method' => null,
                 'owner_type' => 'process',
             ],
             [
