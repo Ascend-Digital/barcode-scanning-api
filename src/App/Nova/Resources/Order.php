@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources;
 
+use App\Nova\Actions\ExportBarcodes;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -25,6 +26,15 @@ class Order extends Resource
             BelongsTo::make('Company'),
             BelongsTo::make('Status'),
             HasMany::make('Order Items'),
+        ];
+    }
+
+    public function actions(NovaRequest $request): array
+    {
+        return [
+            (new ExportBarcodes)
+                ->confirmText(__('Please select a barcode type.'))
+                ->confirmButtonText(__('Generate PDF')),
         ];
     }
 }

@@ -37,7 +37,7 @@ class ExportBarcodes extends Action implements ShouldQueue
 
         $barcodes = $models->map(function (Model $model) use ($codeType, $fields) {
             return [
-                'name' => $model->name,
+                'name' => $model->name ?? $model->id,
                 'company' => $model->company->name,
                 'image' => $codeType->getBarcodePNG((string) $model->barcode->barcode, $fields['type']),
             ];
