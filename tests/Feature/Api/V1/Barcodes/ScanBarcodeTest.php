@@ -23,9 +23,13 @@ use Illuminate\Testing\Fluent\AssertableJson;
 
 uses(RefreshDatabase::class);
 
-it('returns the correct resource when a barcode is scanned', function (Collection $scannedEntities, $resource) {
+it('returns the correct resource when a barcode is scanned', function (Collection $scannedEntities, $resource, $relationshipsToLoad) {
     foreach ($scannedEntities as $scannedEntity) {
         $type = str_replace('Resource', '', last(explode('\\', $resource)));
+
+        if ($relationshipsToLoad) {
+            $scannedEntity->loadMissing($relationshipsToLoad);
+        }
 
         $response = $this
             ->getJson(route('api.v1.barcodes.scan', ['barcode' => $scannedEntity->barcode->barcode]))
@@ -39,13 +43,13 @@ it('returns the correct resource when a barcode is scanned', function (Collectio
         $this->assertJsonResponseContent($resource::make($scannedEntity), $response);
     }
 })->with([
-    [fn () => Item::factory(5)->create(), 'resource' => ItemResource::class],
-    [fn () => Warehouse::factory(5)->create(), 'resource' => WarehouseResource::class],
-    [fn () => StorageLocation::factory(5)->create(), 'resource' => StorageLocationResource::class],
-    [fn () => Workstation::factory(5)->create(), 'resource' => WorkstationResource::class],
-    [fn () => Process::factory(5)->create(), 'resource' => ProcessResource::class],
-    [fn () => StaffMember::factory(5)->create(), 'resource' => StaffMemberResource::class],
-    [fn () => Order::factory(5)->create(), 'resource' => OrderResource::class],
+    [fn () => Item::factory(5)->create(), 'resource' => ItemResource::class, 'relationshipsToLoad' => 'storageLocations'],
+    [fn () => Warehouse::factory(5)->create(), 'resource' => WarehouseResource::class, 'relationshipsToLoad' => ''],
+    [fn () => StorageLocation::factory(5)->create(), 'resource' => StorageLocationResource::class, 'relationshipsToLoad' => ''],
+    [fn () => Workstation::factory(5)->create(), 'resource' => WorkstationResource::class, 'relationshipsToLoad' => ''],
+    [fn () => Process::factory(5)->create(), 'resource' => ProcessResource::class, 'relationshipsToLoad' => ''],
+    [fn () => StaffMember::factory(5)->create(), 'resource' => StaffMemberResource::class, 'relationshipsToLoad' => ''],
+    [fn () => Order::factory(5)->create(), 'resource' => OrderResource::class, 'relationshipsToLoad' => 'orderItems'],
 ]);
 
 // TODO Amend this when more endpoints have been added to the repo

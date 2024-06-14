@@ -46,6 +46,8 @@ class Order extends Model implements ResourcableModel, ScannableModel
     use HasFactory;
     use Scannable;
 
+    protected $with = ['orderItems'];
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V1\Processes\Resources;
+namespace Domain\Processes\Models;
 
 use App\Exceptions\IncompleteProcessException;
 use Illuminate\Database\Eloquent\Collection;
