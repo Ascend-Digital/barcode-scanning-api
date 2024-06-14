@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             StatusSeeder::class,
             WarehouseSeeder::class,
+            OrderItemSeeder::class,
             BarcodeSeeder::class,
             ScannableActionSeeder::class,
         ]);

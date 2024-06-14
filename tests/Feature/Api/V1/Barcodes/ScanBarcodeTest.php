@@ -48,11 +48,12 @@ it('returns the correct resource when a barcode is scanned', function (Collectio
     [fn () => Order::factory(5)->create(), 'resource' => OrderResource::class],
 ]);
 
-// TODO Amend this when more endpoints have been added to the repo, and use factories
+// TODO Amend this when more endpoints have been added to the repo
 it('returns the correct actions when a barcode is scanned, skipping any where the url has failed to generate', function () {
     $scannableAction = ScannableAction::factory([
         'owner_type' => 'process',
-        'endpoint' => 'api.v1.barcodes.scan',
+        'endpoint' => 'api.v1.orders.items.processes',
+        'method' => 'POST',
     ])->create();
 
     ScannableAction::factory([
@@ -65,7 +66,8 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
     $expectedActionCollection = [
         [
             'title' => $scannableAction->title,
-            'endpoint' => route('api.v1.barcodes.scan', ['barcode' => $process->id]),
+            // TODO order and item will need to be changed when no longer hardcoded in the ProcessResource
+            'endpoint' => route('api.v1.orders.items.processes', ['order' => 1, 'item' => 1, 'process' => $process->id]),
             'method' => $scannableAction->method,
         ],
     ];
