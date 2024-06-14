@@ -1,6 +1,7 @@
 <?php
 
 use Domain\Orders\Models\Item;
+use Domain\Orders\Models\Order;
 use Domain\Processes\Models\Process;
 use Domain\Users\Models\StaffMember;
 use Domain\Warehouses\Models\StorageLocation;
@@ -15,5 +16,6 @@ return [
         Workstation::class,
         Process::class,
         StaffMember::class,
+        Order::class,
     ],
 ];

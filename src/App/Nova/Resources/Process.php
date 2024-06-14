@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources;
 
+use App\Nova\Actions\ExportBarcodes;
 use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -34,6 +35,15 @@ class Process extends Resource
         ];
     }
 
+    public function actions(NovaRequest $request): array
+    {
+        return [
+            (new ExportBarcodes)
+                ->confirmText(__('Please select a barcode type.'))
+                ->confirmButtonText(__('Generate PDF')),
+        ];
+    }
+
     public static function relatableQuery(NovaRequest $request, $query): Builder
     {
         if ($request->resource() === OrderItem::class) {
@@ -44,6 +54,5 @@ class Process extends Resource
         }
 
         return parent::relatableQuery($request, $query);
-
     }
 }
