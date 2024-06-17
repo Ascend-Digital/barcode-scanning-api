@@ -71,7 +71,7 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
         [
             'title' => $scannableAction->title,
             // TODO order and item will need to be changed when no longer hardcoded in the ProcessResource
-            'endpoint' => route('api.v1.orders.items.processes', ['order' => 1, 'item' => 1, 'process' => $process->id]),
+            'endpoint' => route('api.v1.orders.items.processes', ['order' => 1, 'item' => 1, 'process' => $process->id], false),
             'method' => $scannableAction->method,
         ],
     ];
