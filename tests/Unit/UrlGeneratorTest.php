@@ -14,5 +14,5 @@ it('generates urls correctly', function () {
     $params = [1];
 
     $value = UrlGenerator::generateActionUrl($action, $params);
-    $this->assertSame(route('api.v1.barcodes.scan', $params), $value);
+    $this->assertSame(route('api.v1.barcodes.scan', $params, false), $value);
 });

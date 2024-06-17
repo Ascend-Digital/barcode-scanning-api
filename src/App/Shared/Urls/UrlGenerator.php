@@ -11,7 +11,7 @@ class UrlGenerator
     public static function generateActionUrl(ScannableAction $action, ?array $parameters = null): ?string
     {
         try {
-            return route($action->endpoint, $parameters);
+            return route($action->endpoint, $parameters, false);
         } catch (RouteNotFoundException $e) {
             Log::error($e->getMessage());
 
