@@ -17,6 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Item::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(StorageLocation::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('quantity')->default(0);
+            $table->dateTime('last_picked_at')->nullable();
+            $table->dateTime('last_placed_at')->nullable();
+            $table->unsignedInteger('last_picked_quantity')->nullable();
+            $table->unsignedInteger('last_placed_quantity')->nullable();
         });
     }
 

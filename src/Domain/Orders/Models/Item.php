@@ -66,7 +66,11 @@ class Item extends Model implements ResourcableModel, ScannableModel
 
     public function storageLocations(): BelongsToMany
     {
-        return $this->belongsToMany(StorageLocation::class);
+        // TODO May be worth promoting item_storage_location pivot model to a standard model
+        // TODO Some of these pivot fields may be removed when logging is added
+        return $this->belongsToMany(StorageLocation::class)->withPivot(
+            'last_picked_at', 'last_placed_at', 'last_picked_quantity', 'last_placed_quantity', 'quantity'
+        );
     }
 
     public function orderItems(): HasMany
