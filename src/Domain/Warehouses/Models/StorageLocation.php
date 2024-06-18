@@ -74,6 +74,11 @@ class StorageLocation extends Model implements ResourcableModel, ScannableModel
         );
     }
 
+    public function itemRestrictions(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class, 'item_storage_location_restrictions', 'storage_location_id', 'item_id');
+    }
+
     public function getCompanyId(): int
     {
         return $this->company_id;
