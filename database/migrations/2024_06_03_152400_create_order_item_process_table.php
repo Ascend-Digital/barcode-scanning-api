@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('order_item_process', function (Blueprint $table) {
             $table->foreignIdFor(OrderItem::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Process::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->timestamp('completed_at');
+            $table->dateTime('completed_at');
             $table->primary(['order_item_id', 'process_id']);
         });
     }
