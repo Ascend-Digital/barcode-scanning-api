@@ -18,14 +18,12 @@ class ItemResource extends JsonResource
             'company' => new CompanyResource($this->whenLoaded('company')),
             'storage_locations' => StorageLocationResource::collection($this->whenLoaded('storageLocations')),
             'actions' => ScannableActionResource::collection($this->actions(
-                // TODO Remove commented-out code which illustrates how this will work when endpoints are added
-                /*
-                [
-                    'order' =>
-                    'workstation' =>
+                // TODO Use query params passed through from the frontend
 
+                [
+                    'storageLocation' => 1,
+                    'item' => 2,
                 ]
-                */
             )),
         ];
     }
