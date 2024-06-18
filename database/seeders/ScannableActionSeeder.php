@@ -12,81 +12,21 @@ class ScannableActionSeeder extends Seeder
         $actions = [
             [
                 'title' => 'Pick from storage location',
-                'endpoint' => null,
-                'method' => null,
+                'endpoint' => 'api.v1.storage-locations.items.pick',
+                'method' => 'POST',
                 'owner_type' => 'item',
             ],
             [
                 'title' => 'Place in storage location',
-                'endpoint' => null,
-                'method' => null,
+                'endpoint' => 'api.v1.storage-locations.items.place',
+                'method' => 'POST',
                 'owner_type' => 'item',
-            ],
-            [
-                'title' => 'Scan a process',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'item',
-            ],
-            [
-                'title' => 'This is a warehouse action',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'warehouse',
-            ],
-            [
-                'title' => 'A warehouse action',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'warehouse',
-            ],
-            [
-                'title' => 'Go to storage location',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'order',
-            ],
-            [
-                'title' => 'An order action',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'order',
-            ],
-            [
-                'title' => 'Open camera to scan process',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'workstation',
             ],
             [
                 'title' => 'Perform process',
                 'endpoint' => 'api.v1.orders.items.processes',
                 'method' => 'POST',
                 'owner_type' => 'process',
-            ],
-            [
-                'title' => 'A process action',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'process',
-            ],
-            [
-                'title' => 'Scan an item',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'storage_location',
-            ],
-            [
-                'title' => 'A storage location action',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'storage_location',
-            ],
-            [
-                'title' => 'Login',
-                'endpoint' => null,
-                'method' => null,
-                'owner_type' => 'staff_member',
             ],
         ];
 
