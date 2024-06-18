@@ -68,8 +68,8 @@ class Order extends Model implements ResourcableModel, ScannableModel
         return $this->company_id;
     }
 
-    public function toResource(): OrderResource
+    public function toResource(array $parameters): OrderResource
     {
-        return new OrderResource($this);
+        return new OrderResource($this, $parameters);
     }
 }

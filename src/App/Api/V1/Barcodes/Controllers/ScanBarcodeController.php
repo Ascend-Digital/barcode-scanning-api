@@ -2,11 +2,12 @@
 
 namespace App\Api\V1\Barcodes\Controllers;
 
+use App\Api\V1\Barcodes\Requests\ScanBarcodeRequest;
 use Domain\Barcodes\Models\Barcode;
 
 class ScanBarcodeController
 {
-    public function __invoke(Barcode $barcode)
+    public function __invoke(ScanBarcodeRequest $request, Barcode $barcode)
     {
         /*
         We may want to run a specific scan action
@@ -17,6 +18,6 @@ class ScanBarcodeController
             ->owner()
             ->with('company')
             ->sole()
-            ->toResource();
+            ->toResource($request->validated());
     }
 }

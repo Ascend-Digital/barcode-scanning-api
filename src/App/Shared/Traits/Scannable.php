@@ -37,7 +37,12 @@ trait Scannable
 
     public function actions(?array $params = null)
     {
+        if ($params) {
+            $paramCount = count(array_filter($params));
+        }
+
         return ScannableAction::where('owner_type', $this->getMorphClass())
+            ->where('expected_parameter_count', $paramCount ?? 0)
             ->get()
             ->map(function (ScannableAction $action) use ($params) {
                 if ($action->endpoint !== null) {

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Api\V1\Barcodes;
 
+use App\Api\V1\Barcodes\Controllers\ScanBarcodeController;
+use App\Api\V1\Barcodes\Requests\ScanBarcodeRequest;
 use App\Api\V1\Items\Resources\ItemResource;
 use App\Api\V1\Orders\Resources\OrderResource;
 use App\Api\V1\Processes\Resources\ProcessResource;
@@ -20,8 +22,10 @@ use Domain\Warehouses\Models\Workstation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
+use JMac\Testing\Traits\AdditionalAssertions;
 
 uses(RefreshDatabase::class);
+uses(AdditionalAssertions::class);
 
 it('returns the correct resource when a barcode is scanned', function (Collection $scannedEntities, $resource, $relationshipsToLoad) {
     foreach ($scannedEntities as $scannedEntity) {
@@ -58,6 +62,7 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
         'owner_type' => 'process',
         'endpoint' => 'api.v1.orders.items.processes',
         'method' => 'POST',
+        'expected_parameter_count' => 3,
     ])->create();
 
     ScannableAction::factory([
@@ -66,18 +71,36 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
     ])->create();
 
     $process = Process::factory()->create();
+    $order = Order::factory()->create();
+    $item = Item::factory()->create();
 
     $expectedActionCollection = [
         [
             'title' => $scannableAction->title,
-            // TODO order and item will need to be changed when no longer hardcoded in the ProcessResource
-            'endpoint' => route('api.v1.orders.items.processes', ['order' => 1, 'item' => 1, 'process' => $process->id], false),
+            'endpoint' => route('api.v1.orders.items.processes',
+                [
+                    'order' => $order->id,
+                    'item' => $item->id,
+                    'process' => $process->id,
+                ], false),
             'method' => $scannableAction->method,
         ],
     ];
 
     $this
-        ->getJson(route('api.v1.barcodes.scan', ['barcode' => $process->barcode->barcode]))
+        ->getJson(route('api.v1.barcodes.scan', [
+            'barcode' => $process->barcode->barcode,
+            'order_id' => $order->id,
+            'item_id' => $item->id,
+        ]))
         ->assertOk()
         ->assertJsonPath('data.actions', $expectedActionCollection);
+});
+
+it('uses validation', function () {
+    $this->assertActionUsesFormRequest(
+        controller: ScanBarcodeController::class,
+        method: '__invoke',
+        form_request: ScanBarcodeRequest::class
+    );
 });

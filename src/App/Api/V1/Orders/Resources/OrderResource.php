@@ -3,13 +3,14 @@
 namespace App\Api\V1\Orders\Resources;
 
 use App\Api\V1\Barcodes\Resources\ScannableActionResource;
+use App\Api\V1\Barcodes\Resources\ScannableResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
 use App\Api\V1\Items\Resources\ItemResource;
+use Domain\Orders\Models\Item;
 use Domain\Orders\Models\ItemCollection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class OrderResource extends ScannableResource
 {
     public function toArray(Request $request): array
     {
@@ -18,7 +19,10 @@ class OrderResource extends JsonResource
             'type' => 'Order',
             'company' => new CompanyResource($this->whenLoaded('company')),
             'items' => $this->whenLoaded('orderItems', function () {
-                return ItemResource::collection($this->items());
+                return ItemResource::collection($this->items()->map(function (Item $item) {
+                    // TODO check whether n+1 here
+                    return new ItemResource($item, $this->parameters);
+                }));
             }),
             'actions' => ScannableActionResource::collection($this->actions()),
         ];
