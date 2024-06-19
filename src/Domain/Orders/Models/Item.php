@@ -83,6 +83,11 @@ class Item extends Model implements ResourcableModel, ScannableModel
         return $this->belongsToMany(Process::class);
     }
 
+    public function storageLocationRestrictions(): BelongsToMany
+    {
+        return $this->belongsToMany(StorageLocation::class, 'item_storage_location_restrictions', 'item_id', 'storage_location_id');
+    }
+
     public function getCompanyId(): int
     {
         return $this->company_id;
@@ -91,5 +96,15 @@ class Item extends Model implements ResourcableModel, ScannableModel
     public function toResource(): ItemResource
     {
         return new ItemResource($this);
+    }
+
+    public function scopeByStorageLocationRestriction(Builder $query, StorageLocation $storageLocation): Builder
+    {
+        return $query->whereRelation('storageLocationRestrictions', 'storage_location_id', $storageLocation->id);
+    }
+
+    public function validate()
+    {
+        dd('here');
     }
 }

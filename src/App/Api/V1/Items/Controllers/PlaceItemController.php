@@ -24,7 +24,11 @@ class PlaceItemController
 
         // TODO use DTOs
         if (! $itemInStorage) {
-            $addItemToStorageLocation->execute($quantity, $storageLocation, $item);
+            try {
+                $addItemToStorageLocation->execute($quantity, $storageLocation, $item);
+            } catch (\Exception $exception) {
+                return new JsonResponse(['error' => $exception->getMessage()], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            }
         } else {
             $updateItemQuantity->execute($storageLocation, $item, $quantity, $itemInStorage->pivot->quantity);
         }
