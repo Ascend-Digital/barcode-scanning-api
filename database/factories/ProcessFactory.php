@@ -14,7 +14,8 @@ class ProcessFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            // TODO make provider work with fake()
+            'name' => $this->faker->unique()->process,
             'company_id' => Company::factory(),
             'from_status' => Status::factory(),
             'to_status' => Status::factory(),

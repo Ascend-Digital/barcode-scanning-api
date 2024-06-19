@@ -13,7 +13,8 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            // TODO make provider work with fake()
+            'name' => $this->faker->unique()->product,
             'company_id' => Company::factory(),
         ];
     }
