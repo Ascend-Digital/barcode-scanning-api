@@ -2,6 +2,7 @@
 
 namespace Domain\Orders\Actions;
 
+use App\Exceptions\RestrictedItemException;
 use Domain\Orders\Models\Item;
 use Domain\Warehouses\Models\StorageLocation;
 use Exception;
@@ -13,10 +14,9 @@ class AddItemToStorageLocation
      */
     public function execute(int $quantity, StorageLocation $storageLocation, Item $item): Item
     {
-//        dd(Item::byStorageLocationRestriction($storageLocation)->get());
-        if ($item->whereRelation('storageLocationRestrictions', 'storage_location_id', $storageLocation->id)->exists()) {
-            throw new Exception('Item cannot be placed in that storage location');
-        };
+        if (! $item->canBePlacedInStorageLocation($storageLocation)) {
+            throw new RestrictedItemException();
+        }
 
         // TODO explore whether this should be in a transaction
         $storageLocation->items()->attach(

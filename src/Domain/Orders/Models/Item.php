@@ -98,13 +98,8 @@ class Item extends Model implements ResourcableModel, ScannableModel
         return new ItemResource($this);
     }
 
-    public function scopeByStorageLocationRestriction(Builder $query, StorageLocation $storageLocation): Builder
+    public function canBePlacedInStorageLocation($storageLocation): bool
     {
-        return $query->whereRelation('storageLocationRestrictions', 'storage_location_id', $storageLocation->id);
-    }
-
-    public function validate()
-    {
-        dd('here');
+        return ! $this->whereRelation('storageLocationRestrictions', 'storage_location_id', $storageLocation->id)->exists();
     }
 }

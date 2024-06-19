@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class PlaceItemController
 {
+    /**
+     * @throws \Exception
+     */
     public function __invoke(
         PlaceItemRequest $placeItemRequest,
         AddItemToStorageLocation $addItemToStorageLocation,
@@ -24,11 +27,7 @@ class PlaceItemController
 
         // TODO use DTOs
         if (! $itemInStorage) {
-            try {
-                $addItemToStorageLocation->execute($quantity, $storageLocation, $item);
-            } catch (\Exception $exception) {
-                return new JsonResponse(['error' => $exception->getMessage()], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
-            }
+            $addItemToStorageLocation->execute($quantity, $storageLocation, $item);
         } else {
             $updateItemQuantity->execute($storageLocation, $item, $quantity, $itemInStorage->pivot->quantity);
         }

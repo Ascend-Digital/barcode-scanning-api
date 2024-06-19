@@ -2,7 +2,6 @@
 
 namespace Domain\Warehouses\Models;
 
-
 use App\Exceptions\IncompleteProcessException;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -13,5 +12,4 @@ class StorageLocationCollection extends Collection
         throw_if($missingPrerequisites->isNotEmpty(), new IncompleteProcessException($missingPrerequisites));
 
     }
-
 }

@@ -27,7 +27,6 @@ class OrderItemProcessObserver
         }
 
         $order = Order::find($orderItem->order_id);
-//        dd($order->status, $process->to_status);
         $order->status()->associate($process->to_status);
         $order->save();
     }

@@ -67,7 +67,15 @@ it('places an item which does not already exist in a storage location', function
     );
 });
 
-it('throws an exception if an item cannot be placed in a storage location')->todo();
+it('throws an exception if an item cannot be placed in a storage location', function () {
+    $item = Item::factory()->create();
+    $storageLocation = StorageLocation::factory()->hasAttached($item, [], 'itemRestrictions')->create();
+
+    $this
+        ->postJson(route('api.v1.storage-locations.items.place', ['storageLocation' => $storageLocation, 'item' => $item, 'quantity' => 2]))
+        ->assertUnprocessable()
+        ->assertJsonPath('message', 'Item cannot be placed in this storage location');
+});
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(
