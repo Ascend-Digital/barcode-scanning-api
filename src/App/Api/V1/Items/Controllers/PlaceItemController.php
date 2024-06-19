@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class PlaceItemController
 {
+    /**
+     * @throws \Exception
+     */
     public function __invoke(
         PlaceItemRequest $placeItemRequest,
         AddItemToStorageLocation $addItemToStorageLocation,
