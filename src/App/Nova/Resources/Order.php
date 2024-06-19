@@ -16,7 +16,8 @@ class Order extends Resource
 
     public static $search = [
         'id',
-        'name',
+        'orderItems.item.name',
+        'orderItems.item.processes.name',
     ];
 
     public function fields(NovaRequest $request): array
