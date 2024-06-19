@@ -28,5 +28,6 @@ class OrderItemProcessObserver
 
         $order = Order::find($orderItem->order_id);
         $order->status()->associate($process->to_status);
+        $order->save();
     }
 }
