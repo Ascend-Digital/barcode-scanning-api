@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('endpoint')->nullable();
             $table->enum('method', ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])->nullable();
+            $table->integer('expected_parameter_count')->default(0);
         });
     }
 

@@ -88,8 +88,8 @@ class Item extends Model implements ResourcableModel, ScannableModel
         return $this->company_id;
     }
 
-    public function toResource(): ItemResource
+    public function toResource(array $parameters): ItemResource
     {
-        return new ItemResource($this);
+        return new ItemResource($this, $parameters);
     }
 }

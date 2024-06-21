@@ -3,11 +3,11 @@
 namespace App\Api\V1\Processes\Resources;
 
 use App\Api\V1\Barcodes\Resources\ScannableActionResource;
+use App\Api\V1\Barcodes\Resources\ScannableResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProcessResource extends JsonResource
+class ProcessResource extends ScannableResource
 {
     public function toArray(Request $request): array
     {
@@ -18,10 +18,8 @@ class ProcessResource extends JsonResource
             'company' => new CompanyResource($this->whenLoaded('company')),
             'actions' => ScannableActionResource::collection($this->actions(
                 [
-                    // TODO read this from either the db or have it passed through/read on the client
-                    'order' => 1,
-                    // TODO read this from either the db or have it passed through/read on the client
-                    'item' => 1,
+                    'order' => $this->parameters['order_id'] ?? null,
+                    'item' => $this->parameters['item_id'] ?? null,
                     'process' => $this->id,
                 ]
             )),

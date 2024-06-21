@@ -68,8 +68,8 @@ class Workstation extends Model implements ResourcableModel, ScannableModel
         return $this->company_id;
     }
 
-    public function toResource(): JsonResource
+    public function toResource(array $parameters): JsonResource
     {
-        return new WorkstationResource($this);
+        return new WorkstationResource($this, $parameters);
     }
 }

@@ -3,10 +3,10 @@
 namespace App\Api\V1\Warehouses\Resources;
 
 use App\Api\V1\Barcodes\Resources\ScannableActionResource;
+use App\Api\V1\Barcodes\Resources\ScannableResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class WarehouseResource extends JsonResource
+class WarehouseResource extends ScannableResource
 {
     public function toArray($request): array
     {

@@ -53,8 +53,8 @@ class StaffMember extends Model implements ResourcableModel, ScannableModel
         return $this->company_id;
     }
 
-    public function toResource(): JsonResource
+    public function toResource($parameters): JsonResource
     {
-        return new StaffMemberResource($this);
+        return new StaffMemberResource($this, $parameters);
     }
 }

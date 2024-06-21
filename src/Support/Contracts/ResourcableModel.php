@@ -6,5 +6,5 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 interface ResourcableModel
 {
-    public function toResource(): JsonResource;
+    public function toResource(array $parameters): JsonResource;
 }

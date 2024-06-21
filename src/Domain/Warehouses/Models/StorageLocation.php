@@ -79,8 +79,8 @@ class StorageLocation extends Model implements ResourcableModel, ScannableModel
         return $this->company_id;
     }
 
-    public function toResource(): JsonResource
+    public function toResource(array $parameters): JsonResource
     {
-        return new StorageLocationResource($this);
+        return new StorageLocationResource($this, $parameters);
     }
 }
