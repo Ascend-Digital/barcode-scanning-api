@@ -14,6 +14,7 @@ class CompanySeeder extends Seeder
     {
         Company::factory(50)
             ->hasStaffMembers(5)
+            ->hasItems(50)
             ->createQuietly();
     }
 }
