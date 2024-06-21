@@ -19,6 +19,7 @@ class ItemResource extends ScannableResource
             'storage_locations' => StorageLocationResource::collection($this->whenLoaded('storageLocations')),
             'actions' => ScannableActionResource::collection($this->actions(
                 [
+                    'order' => $this->parameters['order_id'] ?? null,
                     'storageLocation' => $this->parameters['storage_location_id'] ?? null,
                     'item' => $this->id,
                 ]

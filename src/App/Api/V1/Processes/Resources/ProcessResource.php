@@ -18,8 +18,7 @@ class ProcessResource extends ScannableResource
             'company' => new CompanyResource($this->whenLoaded('company')),
             'actions' => ScannableActionResource::collection($this->actions(
                 [
-                    'order' => $this->parameters['order_id'] ?? null,
-                    'item' => $this->parameters['item_id'] ?? null,
+                    'orderItem' => $this->parameters['order_item_id'] ?? null,
                     'process' => $this->id,
                 ]
             )),

@@ -2,10 +2,14 @@
 
 use App\Api\V1\Items\Controllers\PickItemController;
 use App\Api\V1\Items\Requests\PickItemRequest;
+use App\Api\V1\Orders\Resources\OrderItemResource;
 use Domain\Orders\Models\Item;
+use Domain\Orders\Models\Order;
+use Domain\Orders\Models\OrderItem;
 use Domain\Warehouses\Models\StorageLocation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Illuminate\Testing\Fluent\AssertableJson;
 use JMac\Testing\Traits\AdditionalAssertions;
 
 uses(RefreshDatabase::class);
@@ -18,13 +22,27 @@ it('picks an item', function () {
     $expectedTotal = $currentQuantity - $pickedQuantity;
 
     $item = Item::factory()->create();
+    $order = Order::factory()->create();
+
     $storageLocation = StorageLocation::factory()->hasAttached(
         $item, ['quantity' => $currentQuantity]
     )->create();
 
-    $this
-        ->postJson(route('api.v1.storage-locations.items.pick', ['storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $pickedQuantity]))
-        ->assertOk();
+    $orderItem = OrderItem::factory([
+        'order_id' => $order->id,
+        'item_id' => $item->id,
+    ])->create();
+
+    $response = $this
+        ->postJson(route('api.v1.orders.storage-locations.items.pick', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $pickedQuantity]))
+        ->assertOk()
+        ->assertJson(fn (AssertableJson $json) => $json
+            ->where('data.type', 'OrderItem')
+            ->where('data.order_id', $orderItem->order_id)
+            ->where('data.item_id', $orderItem->item_id)
+        );
+
+    $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 
     $this->assertDatabaseHas(
         'item_storage_location',
@@ -46,12 +64,18 @@ it('throws an exception if an attempt is made to pick more items than are availa
     $expectedTotal = $currentQuantity;
 
     $item = Item::factory()->create();
+    $order = Order::factory()->create();
     $storageLocation = StorageLocation::factory()->hasAttached(
         $item, ['quantity' => $currentQuantity]
     )->create();
 
+    OrderItem::factory([
+        'order_id' => $order->id,
+        'item_id' => $item->id,
+    ])->create();
+
     $this
-        ->postJson(route('api.v1.storage-locations.items.pick', ['storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $pickedQuantity]))
+        ->postJson(route('api.v1.orders.storage-locations.items.pick', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $pickedQuantity]))
         ->assertUnprocessable();
 
     $this->assertDatabaseHas(

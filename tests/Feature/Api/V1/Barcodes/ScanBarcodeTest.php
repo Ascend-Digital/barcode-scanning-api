@@ -14,6 +14,7 @@ use App\Api\V1\Warehouses\Resources\WorkstationResource;
 use Domain\Barcodes\Models\ScannableAction;
 use Domain\Orders\Models\Item;
 use Domain\Orders\Models\Order;
+use Domain\Orders\Models\OrderItem;
 use Domain\Processes\Models\Process;
 use Domain\Users\Models\StaffMember;
 use Domain\Warehouses\Models\StorageLocation;
@@ -60,9 +61,9 @@ it('returns the correct resource when a barcode is scanned', function (Collectio
 it('returns the correct actions when a barcode is scanned, skipping any where the url has failed to generate', function () {
     $scannableAction = ScannableAction::factory([
         'owner_type' => 'process',
-        'endpoint' => 'api.v1.orders.items.processes',
+        'endpoint' => 'api.v1.order-items.processes',
         'method' => 'POST',
-        'expected_parameter_count' => 3,
+        'expected_parameter_count' => 2,
     ])->create();
 
     ScannableAction::factory([
@@ -74,13 +75,17 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
     $order = Order::factory()->create();
     $item = Item::factory()->create();
 
+    $orderItem = OrderItem::factory([
+        'order_id' => $order->id,
+        'item_id' => $item->id,
+    ])->create();
+
     $expectedActionCollection = [
         [
             'title' => $scannableAction->title,
-            'endpoint' => route('api.v1.orders.items.processes',
+            'endpoint' => route('api.v1.order-items.processes',
                 [
-                    'order' => $order->id,
-                    'item' => $item->id,
+                    'orderItem' => $orderItem->id,
                     'process' => $process->id,
                 ], false),
             'method' => $scannableAction->method,
@@ -90,8 +95,7 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
     $this
         ->getJson(route('api.v1.barcodes.scan', [
             'barcode' => $process->barcode->barcode,
-            'order_id' => $order->id,
-            'item_id' => $item->id,
+            'order_item_id' => $orderItem->id,
         ]))
         ->assertOk()
         ->assertJsonPath('data.actions', $expectedActionCollection);
