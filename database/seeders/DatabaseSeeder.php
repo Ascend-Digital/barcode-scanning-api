@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CompanySeeder::class,
-            StatusSeeder::class,
             WarehouseSeeder::class,
+            StatusSeeder::class,
             OrderItemSeeder::class,
             BarcodeSeeder::class,
             ScannableActionSeeder::class,
