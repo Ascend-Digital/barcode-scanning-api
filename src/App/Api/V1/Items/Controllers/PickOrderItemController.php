@@ -11,7 +11,7 @@ use Domain\Orders\Models\OrderItem;
 use Domain\Warehouses\Models\StorageLocation;
 use Exception;
 
-class PickItemController
+class PickOrderItemController
 {
     /**
      * @throws Exception
