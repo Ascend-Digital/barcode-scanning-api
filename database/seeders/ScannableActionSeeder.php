@@ -12,24 +12,24 @@ class ScannableActionSeeder extends Seeder
         $actions = [
             [
                 'title' => 'Pick from storage location',
-                'endpoint' => 'api.v1.storage-locations.items.pick',
+                'endpoint' => 'api.v1.orders.storage-locations.items.pick',
                 'method' => 'POST',
                 'owner_type' => 'item',
-                'expected_parameter_count' => 2,
+                'expected_parameter_count' => 3,
             ],
             [
                 'title' => 'Place in storage location',
-                'endpoint' => 'api.v1.storage-locations.items.place',
+                'endpoint' => 'api.v1.orders.storage-locations.items.place',
                 'method' => 'POST',
                 'owner_type' => 'item',
-                'expected_parameter_count' => 2,
+                'expected_parameter_count' => 3,
             ],
             [
                 'title' => 'Perform process',
-                'endpoint' => 'api.v1.orders.items.processes',
+                'endpoint' => 'api.v1.order-items.processes',
                 'method' => 'POST',
                 'owner_type' => 'process',
-                'expected_parameter_count' => 3,
+                'expected_parameter_count' => 2,
             ],
         ];
 

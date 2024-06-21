@@ -11,6 +11,7 @@ class ScanBarcodeRequest extends FormRequest
         return [
             'item_id' => ['sometimes', 'integer', 'exists:items,id'],
             'order_id' => ['sometimes', 'integer', 'exists:orders,id'],
+            'order_item_id' => ['sometimes', 'integer', 'exists:order_items,id'],
             'storage_location_id' => ['sometimes', 'integer', 'exists:storage_locations,id'],
         ];
     }

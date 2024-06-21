@@ -9,6 +9,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/barcodes/{barcode:barcode}', ScanBarcodeController::class)->name('barcodes.scan');
 
 //TODO Sanctum auth
-Route::post('/orders/{order}/items/{item}/processes/{process}', PerformProcessController::class)->name('orders.items.processes');
-Route::post('/storage-locations/{storageLocation}/items/{item}/pick', PickItemController::class)->name('storage-locations.items.pick');
-Route::post('/storage-locations/{storageLocation}/items/{item}/place', PlaceItemController::class)->name('storage-locations.items.place');
+Route::post('/order-items/{orderItem}/processes/{process}', PerformProcessController::class)->name('order-items.processes');
+Route::post('/orders/{order}/storage-locations/{storageLocation}/items/{item}/pick', PickItemController::class)->name('orders.storage-locations.items.pick');
+Route::post('orders/{order}/storage-locations/{storageLocation}/items/{item}/place', PlaceItemController::class)->name('orders.storage-locations.items.place');
