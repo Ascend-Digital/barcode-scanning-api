@@ -1,6 +1,6 @@
 <?php
 
-use App\Api\V1\Items\Controllers\PickItemController;
+use App\Api\V1\Items\Controllers\PickOrderItemController;
 use App\Api\V1\Items\Requests\PickItemRequest;
 use App\Api\V1\Orders\Resources\OrderItemResource;
 use Domain\Orders\Models\Item;
@@ -94,7 +94,7 @@ it('throws an exception if an attempt is made to pick more items than are availa
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(
-        controller: PickItemController::class,
+        controller: PickOrderItemController::class,
         method: '__invoke',
         form_request: PickItemRequest::class
     );
