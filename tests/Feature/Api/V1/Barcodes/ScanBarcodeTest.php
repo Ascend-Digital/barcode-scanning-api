@@ -50,7 +50,7 @@ it('returns the correct resource when a barcode is scanned', function (Collectio
 })->with([
     [fn () => Item::factory(5)->create(), 'resource' => ItemResource::class, 'relationshipsToLoad' => 'storageLocations'],
     [fn () => Warehouse::factory(5)->create(), 'resource' => WarehouseResource::class, 'relationshipsToLoad' => ''],
-    [fn () => StorageLocation::factory(5)->create(), 'resource' => StorageLocationResource::class, 'relationshipsToLoad' => ''],
+    [fn () => StorageLocation::factory(5)->create(), 'resource' => StorageLocationResource::class, 'relationshipsToLoad' => 'items'],
     [fn () => Workstation::factory(5)->create(), 'resource' => WorkstationResource::class, 'relationshipsToLoad' => ''],
     [fn () => Process::factory(5)->create(), 'resource' => ProcessResource::class, 'relationshipsToLoad' => ''],
     [fn () => StaffMember::factory(5)->create(), 'resource' => StaffMemberResource::class, 'relationshipsToLoad' => ''],
