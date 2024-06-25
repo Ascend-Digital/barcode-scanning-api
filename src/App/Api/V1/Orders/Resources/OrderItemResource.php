@@ -19,25 +19,11 @@ class OrderItemResource extends ScannableResource
             'name' => $this->item->name,
             'order_id' => $this->order_id,
             'item_id' => $this->item_id,
-            'storage_locations' => StorageLocationResource::collection($this->item->storageLocations),
-            'actions' => isset($this->parameters['storage_location_id']) ? $this->getActions($this) : []
+            'is_picked' => $this->status === 'picked',
+            'storage_locations' => StorageLocationResource::collection($this->item->storageLocations->map(function (StorageLocation $item) {
+                return new StorageLocationResource($item, ['status' => 'picked']);
+            })),
+            'actions' => []
         ];
-    }
-
-    private function getActions($orderItem)
-    {
-        if ($this->parameters['storage_location_id']) {
-            if ($orderItem->status !== 'picked') {
-                return [
-                    'title' => 'Pick from storage location',
-                    'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->parameters['storage_location_id'], 'orderItem' => $this->id])
-                ];
-            }
-
-            return [
-                'title' => 'Place in storage location',
-                //'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->parameters['storage_location_id'], 'orderItem' => $this->id])
-            ];
-        }
     }
 }

@@ -6,6 +6,8 @@ use App\Api\V1\Barcodes\Resources\ScannableActionResource;
 use App\Api\V1\Barcodes\Resources\ScannableResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
 use App\Api\V1\Items\Resources\ItemResource;
+use App\Shared\Urls\UrlGenerator;
+use Domain\Barcodes\Models\ScannableAction;
 use Domain\Orders\Models\OrderItem;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,6 @@ class StorageLocationResource extends ScannableResource
 {
     public function toArray(Request $request): array
     {
-//        dd($this->parameters);
         return [
             'id' => $this->id,
             'type' => 'StorageLocation',
@@ -23,24 +24,38 @@ class StorageLocationResource extends ScannableResource
             'quantity' => $this->whenPivotLoaded('item_storage_location', function () {
                 return $this->pivot->quantity;
             }),
-            'actions' => isset($this->parameters['order_item_id']) ? $this->getActions($this->parameters['order_item_id']) : []
+            'actions' => ScannableActionResource::collection(
+                $this->actions(
+                    [
+                        'orderItem' => $this->parameters['order_item_id'] ?? null,
+                        'storageLocation' => $this->id,
+                    ]
+                ))
         ];
     }
 
-    private function getActions($orderItemId)
+    private function actions($parameters = null)
     {
-        $orderItem = OrderItem::find($orderItemId);
-
-        if ($orderItem->status !== 'picked') {
-            return [
-                'title' => "Pick order item " . $orderItem->item->name . " from storage location",
-                'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->id, 'orderItem' => $orderItemId])
-            ];
+        if (! isset($parameters['orderItem'])) {
+            return [];
         }
 
-        return [
-            'title' => 'Place in storage location',
-            //'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->parameters['storage_location_id'], 'orderItem' => $this->id])
-        ];
+        $orderItemId = $parameters['orderItem'];
+        $orderItem = OrderItem::find($orderItemId);
+
+        $key = $orderItem->status === 'picked' ? 'placeItemInStorageLocation' : 'pickItemFromStorageLocation';
+
+        return ScannableAction::where('owner_type', 'storage_location')
+            ->where('key', $key)
+            ->get()
+            ->map(function (ScannableAction $action) use ($parameters) {
+                if ($action->endpoint !== null) {
+                    $action->endpoint = UrlGenerator::generateActionUrl($action, $parameters);
+                }
+
+                return $action;
+            })->reject(function (ScannableAction $action) {
+                return $action->method !== null && $action->endpoint === null;
+            });
     }
 }

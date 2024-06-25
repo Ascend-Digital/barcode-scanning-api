@@ -70,8 +70,6 @@ class Order extends Model implements ResourcableModel, ScannableModel
 
     public function toResource(array $parameters): OrderResource
     {
-//        $this->loadMissing('orderItems.item.storageLocations');
-
         return new OrderResource($this, $parameters);
     }
 }

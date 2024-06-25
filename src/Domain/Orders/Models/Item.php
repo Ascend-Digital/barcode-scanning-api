@@ -90,7 +90,7 @@ class Item extends Model implements ResourcableModel, ScannableModel
 
     public function toResource(array $parameters): JsonResource
     {
-        if (isset($parameters['order_id']) && isset($parameters['storage_location_id'])) {
+        if (isset($parameters['order_id'])) {
             $orderItem = OrderItem::query()->where('order_id', $parameters['order_id'])->where('item_id', $this->id)->firstOrFail();
             return new OrderItemResource($orderItem);
         };

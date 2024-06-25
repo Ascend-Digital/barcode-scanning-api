@@ -24,16 +24,6 @@ class OrderResource extends ScannableResource
         ];
     }
 
-    private function getActions($orderItem)
-    {
-        if ($orderItem->status !== 'picked') {
-            return [
-                'title' => 'Pick from storage location',
-                'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->parameters['storage_location_id'], 'orderItem' => $this->id])
-            ];
-        }
-    }
-
     private function items(): ItemCollection
     {
         return new ItemCollection($this->orderItems->map(function ($orderItem) {
