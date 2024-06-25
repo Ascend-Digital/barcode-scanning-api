@@ -11,6 +11,7 @@ Route::get('/barcodes/{barcode:barcode}', ScanBarcodeController::class)->name('b
 
 //TODO Sanctum auth
 Route::post('/order-items/{orderItem}/processes/{process}', PerformProcessController::class)->name('order-items.processes');
-Route::post('/orders/{order}/storage-locations/{storageLocation}/items/{item}/pick', PickOrderItemController::class)->name('orders.storage-locations.items.pick');
+//Route::post('/orders/{order}/storage-locations/{storageLocation}/items/{item}/pick', PickOrderItemController::class)->name('orders.storage-locations.items.pick');
+Route::post('/storage-locations/{storageLocation}/order-items/{orderItem}/pick', PickOrderItemController::class)->name('storage-locations.order-items.pick');
 Route::post('/orders/{order}/storage-locations/{storageLocation}/items/{item}/place', PlaceOrderItemController::class)->name('orders.storage-locations.items.place');
 Route::post('/storage-locations/{storageLocation}/items/{item}/place', PlaceItemController::class)->name('storage-locations.items.place');

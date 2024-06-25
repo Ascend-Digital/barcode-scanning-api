@@ -81,7 +81,9 @@ class StorageLocation extends Model implements ResourcableModel, ScannableModel
 
     public function toResource(array $parameters): JsonResource
     {
-        $this->loadMissing('items');
+        if (!isset($parameters['order_item_id'])) {
+            $this->loadMissing('items');
+        }
 
         return new StorageLocationResource($this, $parameters);
     }

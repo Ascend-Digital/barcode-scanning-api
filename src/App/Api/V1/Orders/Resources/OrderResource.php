@@ -8,6 +8,8 @@ use App\Api\V1\Companies\Resources\CompanyResource;
 use App\Api\V1\Items\Resources\ItemResource;
 use Domain\Orders\Models\Item;
 use Domain\Orders\Models\ItemCollection;
+use Domain\Orders\Models\Order;
+use Domain\Orders\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderResource extends ScannableResource
@@ -18,14 +20,18 @@ class OrderResource extends ScannableResource
             'id' => $this->id,
             'type' => 'Order',
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'items' => $this->whenLoaded('orderItems', function () {
-                return ItemResource::collection($this->items()->map(function (Item $item) {
-                    // TODO check whether n+1 here
-                    return new ItemResource($item, $this->parameters);
-                }));
-            }),
-            'actions' => ScannableActionResource::collection($this->actions()),
+            'order_items' =>  OrderItemResource::collection($this->whenLoaded('orderItems')),
         ];
+    }
+
+    private function getActions($orderItem)
+    {
+        if ($orderItem->status !== 'picked') {
+            return [
+                'title' => 'Pick from storage location',
+                'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->parameters['storage_location_id'], 'orderItem' => $this->id])
+            ];
+        }
     }
 
     private function items(): ItemCollection
