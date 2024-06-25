@@ -53,8 +53,6 @@ class Item extends Model implements ResourcableModel, ScannableModel
     use HasFactory;
     use Scannable;
 
-    protected $with = ['storageLocations'];
-
     protected $fillable = [
         'name',
     ];
@@ -90,6 +88,8 @@ class Item extends Model implements ResourcableModel, ScannableModel
 
     public function toResource(array $parameters): ItemResource
     {
+        $this->loadMissing('storageLocations');
+
         return new ItemResource($this, $parameters);
     }
 }
