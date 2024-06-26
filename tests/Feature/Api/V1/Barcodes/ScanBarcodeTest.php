@@ -119,6 +119,8 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
         ->assertJsonPath('data.actions', $expectedActionCollection);
 });
 
+it('returns the correct actions for picking and placing, depending on whether an order item has already been picked or placed')->todo();
+
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(
         controller: ScanBarcodeController::class,
