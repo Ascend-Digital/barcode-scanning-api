@@ -96,6 +96,7 @@ it('throws an exception if an attempt is made to pick more items than are availa
 });
 
 it('cannot pick an order item which has already been picked')->todo();
+it('throws an exception if an attempt is made to pick an item from a storage location it does not exist in')->todo();
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(

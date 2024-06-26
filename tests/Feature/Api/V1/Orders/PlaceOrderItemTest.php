@@ -99,6 +99,7 @@ it('places an item which does not already exist in a storage location', function
 });
 
 it('throws an exception if an item cannot be placed in a storage location')->todo();
+it('cannot place an order item which has already been picked')->todo();
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(
