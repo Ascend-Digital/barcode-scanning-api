@@ -35,7 +35,7 @@ trait Scannable
         return $this->morphOne(Barcode::class, 'owner');
     }
 
-    public function actions(?array $params = null)
+    public function actions(?array $params = null, $key = null)
     {
         if ($params) {
             $paramCount = count(array_filter($params));
@@ -43,6 +43,7 @@ trait Scannable
 
         return ScannableAction::where('owner_type', $this->getMorphClass())
             ->where('expected_parameter_count', $paramCount ?? 0)
+            ->where('key', $key)
             ->get()
             ->map(function (ScannableAction $action) use ($params) {
                 if ($action->endpoint !== null) {

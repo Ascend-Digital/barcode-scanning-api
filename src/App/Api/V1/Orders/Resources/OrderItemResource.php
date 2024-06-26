@@ -19,10 +19,8 @@ class OrderItemResource extends ScannableResource
             'name' => $this->item->name,
             'order_id' => $this->order_id,
             'item_id' => $this->item_id,
-            'is_picked' => $this->status === 'picked',
-            'storage_locations' => StorageLocationResource::collection($this->item->storageLocations->map(function (StorageLocation $item) {
-                return new StorageLocationResource($item, ['status' => 'picked']);
-            })),
+            'is_picked' => ! is_null($this->picked_at),
+            'storage_locations' => StorageLocationResource::collection($this->item->storageLocations),
             'actions' => []
         ];
     }

@@ -29,33 +29,21 @@ class StorageLocationResource extends ScannableResource
                     [
                         'orderItem' => $this->parameters['order_item_id'] ?? null,
                         'storageLocation' => $this->id,
-                    ]
-                ))
+                    ],
+                    $this->getKey($this->parameters['order_item_id'])
+                    )
+                ),
         ];
     }
 
-    private function actions($parameters = null)
+    private function getKey($orderItemId)
     {
-        if (! isset($parameters['orderItem'])) {
+        if (! isset($orderItemId)) {
             return [];
         }
 
-        $orderItemId = $parameters['orderItem'];
         $orderItem = OrderItem::find($orderItemId);
 
-        $key = $orderItem->status === 'picked' ? 'placeItemInStorageLocation' : 'pickItemFromStorageLocation';
-
-        return ScannableAction::where('owner_type', 'storage_location')
-            ->where('key', $key)
-            ->get()
-            ->map(function (ScannableAction $action) use ($parameters) {
-                if ($action->endpoint !== null) {
-                    $action->endpoint = UrlGenerator::generateActionUrl($action, $parameters);
-                }
-
-                return $action;
-            })->reject(function (ScannableAction $action) {
-                return $action->method !== null && $action->endpoint === null;
-            });
+        return !is_null($orderItem->picked_at) ? 'placeItemInStorageLocation' : 'pickItemFromStorageLocation';
     }
 }

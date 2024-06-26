@@ -20,7 +20,8 @@ class ProcessResource extends ScannableResource
                 [
                     'orderItem' => $this->parameters['order_item_id'] ?? null,
                     'process' => $this->id,
-                ]
+                ],
+                'performProcessOnOrderItem'
             )),
         ];
     }
