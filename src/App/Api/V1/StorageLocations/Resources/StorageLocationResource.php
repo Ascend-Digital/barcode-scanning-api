@@ -23,7 +23,7 @@ class StorageLocationResource extends ScannableResource
                 return $this->pivot->quantity;
             }),
             'actions' => ScannableActionResource::collection(
-                $this->actions(
+                $this->resource->actions(
                     [
                         'orderItem' => $this->parameters['order_item_id'] ?? null,
                         'storageLocation' => $this->id,
@@ -35,14 +35,14 @@ class StorageLocationResource extends ScannableResource
         ];
     }
 
-    private function getKey($parameters): array|string
+    private function getKey($parameters): array|string|null
     {
         if (isset($parameters['item_id'])) {
             return 'placeItemInStorageLocation';
         }
 
         if (! isset($parameters['order_item_id'])) {
-            return [];
+            return null;
         }
 
         $orderItem = OrderItem::find($parameters['order_item_id']);

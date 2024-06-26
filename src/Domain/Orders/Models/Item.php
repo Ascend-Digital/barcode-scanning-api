@@ -83,9 +83,9 @@ class Item extends Model implements ResourcableModel, ScannableModel
         return $this->belongsToMany(Process::class);
     }
 
-    public function orderItem($orderId)
+    public function orderItem(int $orderId)
     {
-        return $this->orderItems()->where('order_id', $orderId)->firstOrFail();
+        return $this->orderItems()->find($orderId);
     }
 
     public function getCompanyId(): int
@@ -95,8 +95,6 @@ class Item extends Model implements ResourcableModel, ScannableModel
 
     public function toResource(array $parameters): JsonResource
     {
-        $this->loadMissing('storageLocations');
-
         if (isset($parameters['order_id'])) {
             return new OrderItemResource($this->orderItem($parameters['order_id']));
         }

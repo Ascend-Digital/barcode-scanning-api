@@ -16,9 +16,7 @@ class ItemResource extends ScannableResource
             'type' => 'Item',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'storage_locations' => StorageLocationResource::collection($this->storageLocations->map(function (StorageLocation $item) {
-                return new StorageLocationResource($item, $this->parameters);
-            })),
+            'storage_locations' => StorageLocationResource::collection($this->whenLoaded('storageLocations')),
             'quantity' => $this->whenPivotLoaded('item_storage_location', function () {
                 return $this->pivot->quantity;
             }),
