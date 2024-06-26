@@ -43,7 +43,7 @@ trait Scannable
 
         return ScannableAction::where('owner_type', $this->getMorphClass())
             ->where('expected_parameter_count', $paramCount ?? 0)
-            ->where('key', $key)
+            ->where('key', $key ?? null)
             ->get()
             ->map(function (ScannableAction $action) use ($params) {
                 if ($action->endpoint !== null) {

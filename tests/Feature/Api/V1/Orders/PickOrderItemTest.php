@@ -34,7 +34,7 @@ it('picks an item', function () {
     ])->create();
 
     $response = $this
-        ->postJson(route('api.v1.orders.storage-locations.items.pick', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $pickedQuantity]))
+        ->postJson(route('api.v1.storage-locations.order-items.pick', ['orderItem' => $orderItem, 'storageLocation' => $storageLocation, 'quantity' => $pickedQuantity]))
         ->assertOk()
         ->assertJson(fn (AssertableJson $json) => $json
             ->where('data.type', 'OrderItem')
