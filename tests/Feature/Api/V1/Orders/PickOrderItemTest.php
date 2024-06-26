@@ -40,7 +40,10 @@ it('picks an item', function () {
             ->where('data.type', 'OrderItem')
             ->where('data.order_id', $orderItem->order_id)
             ->where('data.item_id', $orderItem->item_id)
+            ->where('data.is_picked', true)
         );
+
+    $orderItem->refresh();
 
     $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 
@@ -91,6 +94,8 @@ it('throws an exception if an attempt is made to pick more items than are availa
         ]
     );
 });
+
+it('cannot pick an order item which has already been picked')->todo();
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(

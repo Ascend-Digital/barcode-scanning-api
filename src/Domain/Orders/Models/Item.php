@@ -95,6 +95,8 @@ class Item extends Model implements ResourcableModel, ScannableModel
 
     public function toResource(array $parameters): JsonResource
     {
+        $this->loadMissing('storageLocations');
+
         if (isset($parameters['order_id'])) {
             return new OrderItemResource($this->orderItem($parameters['order_id']));
         }

@@ -22,10 +22,8 @@ class PickOrderItemController
     {
         $quantity = $pickItemRequest->validated('quantity');
 
-        $item = $orderItem->item;
-
         // TODO use DTOs
-        $pickItemAction->execute($quantity, $storageLocation, $item);
+        $pickItemAction->execute($quantity, $storageLocation, $orderItem);
 
         return new OrderItemResource($orderItem);
     }

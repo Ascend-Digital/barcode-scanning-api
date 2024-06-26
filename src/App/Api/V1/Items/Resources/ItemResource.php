@@ -5,7 +5,6 @@ namespace App\Api\V1\Items\Resources;
 use App\Api\V1\Barcodes\Resources\ScannableResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
 use App\Api\V1\StorageLocations\Resources\StorageLocationResource;
-use Domain\Warehouses\Models\StorageLocation;
 
 class ItemResource extends ScannableResource
 {
