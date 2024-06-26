@@ -27,6 +27,7 @@ class StorageLocationResource extends ScannableResource
                     [
                         'orderItem' => $this->parameters['order_item_id'] ?? null,
                         'storageLocation' => $this->id,
+                        'item' => $this->parameters['item_id'] ?? null,
                     ],
                     $this->getKey($this->parameters)
                 )
@@ -34,8 +35,12 @@ class StorageLocationResource extends ScannableResource
         ];
     }
 
-    private function getKey($parameters)
+    private function getKey($parameters): array|string
     {
+        if (isset($parameters['item_id'])) {
+            return 'placeItemInStorageLocation';
+        }
+
         if (! isset($parameters['order_item_id'])) {
             return [];
         }

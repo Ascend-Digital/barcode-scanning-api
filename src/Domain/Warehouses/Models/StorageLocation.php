@@ -4,15 +4,12 @@ namespace Domain\Warehouses\Models;
 
 use App\Api\V1\StorageLocations\Resources\StorageLocationResource;
 use App\Shared\Traits\Scannable;
-use App\Shared\Urls\UrlGenerator;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\StorageLocationFactory;
 use Domain\Barcodes\Contracts\ScannableModel;
 use Domain\Barcodes\Models\Barcode;
-use Domain\Barcodes\Models\ScannableAction;
 use Domain\Companies\Models\Company;
 use Domain\Orders\Models\Item;
-use Domain\Orders\Models\OrderItem;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -82,57 +79,9 @@ class StorageLocation extends Model implements ResourcableModel, ScannableModel
         return $this->company_id;
     }
 
-    //    public function actions($params = null)
-    //    {
-    //        if (! $params['orderItem']) {
-    //            return [];
-    //        }
-    //        $orderItem = OrderItem::find($params['orderItem']);
-    //        if ($orderItem->status !== 'picked') {
-    //            $key = 'pickItemFromStorageLocation';
-    //        } else {
-    //            $key = 'placeItemInStorageLocation';
-    //        }
-    //
-    //        return ScannableAction::where('owner_type', 'storage_location')
-    //            ->where('key', $key)
-    //            ->get()
-    //            ->map(function (ScannableAction $action) use ($params) {
-    //                if ($action->endpoint !== null) {
-    //                    $action->endpoint = UrlGenerator::generateActionUrl($action, $params);
-    //                }
-    //
-    //                return $action;
-    //            })->reject(function (ScannableAction $action) {
-    //                return $action->method !== null && $action->endpoint === null;
-    //            });
-    //    }
-
-    //    public function actions($parameters)
-    //    {
-    //        if (! isset($parameters['order_item_id'])) {
-    //            return [];
-    //        }
-    //
-    //        $orderItemId = $parameters['order_item_id'];
-    //        $orderItem = OrderItem::find($orderItemId);
-    //
-    //        if ($orderItem->status !== 'picked') {
-    //            return [
-    //                'title' => "Pick order item " . $orderItem->item->name . " from storage location",
-    //                'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->id, 'orderItem' => $orderItemId])
-    //            ];
-    //        }
-    //
-    //        return [
-    //            'title' => 'Place in storage location',
-    //            //'endpoint' => route('api.v1.storage-locations.order-items.pick', ['storageLocation' => $this->parameters['storage_location_id'], 'orderItem' => $this->id])
-    //        ];
-    //    }
-
     public function toResource(array $parameters): JsonResource
     {
-        if (! isset($parameters['order_item_id'])) {
+        if (! isset($parameters['order_item_id']) && ! isset($parameters['item_id'])) {
             $this->loadMissing('items');
         }
 
