@@ -34,7 +34,7 @@ it('updates an item quantity correctly', function () {
     ])->create();
 
     $response = $this
-        ->postJson(route('api.v1.orders.storage-locations.items.place', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $addedQuantity]))
+        ->postJson(route('api.v1.storage-locations.order-items.place', ['orderItem' => $orderItem, 'storageLocation' => $storageLocation, 'quantity' => $addedQuantity]))
         ->assertOk()
         ->assertJson(fn (AssertableJson $json) => $json
             ->where('data.type', 'OrderItem')
@@ -74,7 +74,7 @@ it('places an item which does not already exist in a storage location', function
     ])->create();
 
     $response = $this
-        ->postJson(route('api.v1.orders.storage-locations.items.place', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $addedQuantity]))
+        ->postJson(route('api.v1.storage-locations.order-items.place', ['orderItem' => $orderItem, 'storageLocation' => $storageLocation, 'quantity' => $addedQuantity]))
         ->assertOk()
         ->assertJson(fn (AssertableJson $json) => $json
             ->where('data.type', 'OrderItem')

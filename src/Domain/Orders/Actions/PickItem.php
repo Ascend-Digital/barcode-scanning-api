@@ -32,6 +32,8 @@ class PickItem
             'last_picked_quantity' => $quantity,
         ]);
 
+        // TODO mark the order item as picked
+
         return $item;
     }
 }
