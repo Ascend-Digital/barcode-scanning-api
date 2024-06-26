@@ -3,7 +3,6 @@
 namespace Domain\Orders\Actions;
 
 use App\Exceptions\InvalidItemQuantityException;
-use Domain\Orders\Models\Item;
 use Domain\Orders\Models\OrderItem;
 use Domain\Warehouses\Models\StorageLocation;
 
@@ -37,8 +36,6 @@ class PickItem
 
         $orderItem->picked_at = now();
         $orderItem->save();
-
-        // TODO mark the order item as picked
 
         return $orderItem;
     }
