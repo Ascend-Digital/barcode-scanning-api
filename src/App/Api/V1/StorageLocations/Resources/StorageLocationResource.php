@@ -47,6 +47,6 @@ class StorageLocationResource extends ScannableResource
 
         $orderItem = OrderItem::find($parameters['order_item_id']);
 
-        return ! is_null($orderItem->picked_at) ? 'placeItemInStorageLocation' : 'pickItemFromStorageLocation';
+        return ! is_null($orderItem->picked_at) ? 'placeOrderItemInStorageLocation' : 'pickOrderItemFromStorageLocation';
     }
 }
