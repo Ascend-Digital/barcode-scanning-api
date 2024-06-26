@@ -2,12 +2,9 @@
 
 namespace App\Api\V1\Items\Resources;
 
-use App\Api\V1\Barcodes\Resources\ScannableActionResource;
 use App\Api\V1\Barcodes\Resources\ScannableResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
-use App\Api\V1\Orders\Resources\OrderItemResource;
 use App\Api\V1\StorageLocations\Resources\StorageLocationResource;
-use Domain\Orders\Models\OrderItem;
 use Domain\Warehouses\Models\StorageLocation;
 
 class ItemResource extends ScannableResource

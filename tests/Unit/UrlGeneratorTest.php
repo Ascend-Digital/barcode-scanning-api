@@ -10,7 +10,7 @@ it('generates urls correctly', function () {
     $action = ScannableAction::factory([
         'owner_type' => 'workstation',
         'endpoint' => 'api.v1.barcodes.scan',
-        'key' => 'key'
+        'key' => 'key',
     ])->create();
     $params = [1];
 

@@ -6,8 +6,6 @@ use App\Api\V1\Barcodes\Resources\ScannableActionResource;
 use App\Api\V1\Barcodes\Resources\ScannableResource;
 use App\Api\V1\Companies\Resources\CompanyResource;
 use App\Api\V1\Items\Resources\ItemResource;
-use App\Shared\Urls\UrlGenerator;
-use Domain\Barcodes\Models\ScannableAction;
 use Domain\Orders\Models\OrderItem;
 use Illuminate\Http\Request;
 
@@ -31,8 +29,8 @@ class StorageLocationResource extends ScannableResource
                         'storageLocation' => $this->id,
                     ],
                     $this->getKey($this->parameters)
-                    )
-                ),
+                )
+            ),
         ];
     }
 
@@ -44,6 +42,6 @@ class StorageLocationResource extends ScannableResource
 
         $orderItem = OrderItem::find($parameters['order_item_id']);
 
-        return !is_null($orderItem->picked_at) ? 'placeItemInStorageLocation' : 'pickItemFromStorageLocation';
+        return ! is_null($orderItem->picked_at) ? 'placeItemInStorageLocation' : 'pickItemFromStorageLocation';
     }
 }
