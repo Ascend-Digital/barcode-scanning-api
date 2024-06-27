@@ -6,6 +6,7 @@ use App\Nova\Actions\ExportBarcodes;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -29,7 +30,13 @@ class StorageLocation extends Resource
                 ->rules('required', 'max:255'),
             BelongsTo::make('Company'),
             BelongsTo::make('Warehouse'),
-            BelongsToMany::make('Items', 'items', Item::class),
+            BelongsToMany::make('Items', 'items', Item::class)
+                ->fields(function () {
+                    return [
+                        Number::make('Quantity')
+                            ->rules('required', 'integer', 'min:1'),
+                    ];
+                }),
         ];
     }
 
