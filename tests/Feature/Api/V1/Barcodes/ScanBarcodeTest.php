@@ -57,6 +57,22 @@ it('returns the correct resource when a barcode is scanned', function (Collectio
     [fn () => Order::factory(5)->create(), 'resource' => OrderResource::class, 'relationshipsToLoad' => 'orderItems'],
 ]);
 
+it('returns item quantities when a storage location or item is scanned, and the data is available', function (Item|StorageLocation $model, string $property) {
+    $quantity = 10;
+
+    $this
+        ->getJson(route('api.v1.barcodes.scan', ['barcode' => $model->barcode->barcode]))
+        ->assertOk()
+        ->assertJson(fn (AssertableJson $json) => $json
+            ->where($property, $quantity)
+        );
+})->with([
+    [fn () => Item::factory()->hasAttached(StorageLocation::factory(), ['quantity' => 10])->create(), 'property' => 'data.storage_locations.0.quantity'],
+    [fn () => StorageLocation::factory()->hasAttached(Item::factory(), ['quantity' => 10])->create(), 'property' => 'data.items.0.quantity'],
+]);
+
+it('returns correct quantities when multiple items exist in several storage locations')->todo();
+
 // TODO Amend this when more endpoints have been added to the repo
 it('returns the correct actions when a barcode is scanned, skipping any where the url has failed to generate', function () {
     $scannableAction = ScannableAction::factory([
