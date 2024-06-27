@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class OrderItem extends Resource
@@ -27,6 +28,7 @@ class OrderItem extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Order'),
             BelongsTo::make('Item'),
+            Number::make('Quantity')->rules('required', 'integer', 'min:1'),
             BelongsToMany::make('Completed Processes', 'processes', Process::class)
                 ->fields(function () {
                     return [
