@@ -42,6 +42,8 @@ it('updates an item quantity correctly', function () {
             ->where('data.item_id', $orderItem->item_id)
         );
 
+    $orderItem->refresh();
+
     $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 
     $this->assertDatabaseHas(
@@ -81,6 +83,8 @@ it('places an item which does not already exist in a storage location', function
             ->where('data.order_id', $orderItem->order_id)
             ->where('data.item_id', $orderItem->item_id)
         );
+
+    $orderItem->refresh();
 
     $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 

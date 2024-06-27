@@ -32,6 +32,8 @@ it('performs a process on the correct order item', function () {
             ->where('data.item_id', $orderItem->item_id)
         );
 
+    $orderItem->refresh();
+
     $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 
     $this->assertDatabaseHas('order_item_process', ['order_item_id' => $orderItem->id, 'process_id' => $process->id, 'completed_at' => '2024-06-12 12:00:00']);
