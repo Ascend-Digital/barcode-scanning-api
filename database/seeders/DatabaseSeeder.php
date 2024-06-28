@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             WarehouseSeeder::class,
             StatusSeeder::class,
+            ProcessSeeder::class,
             OrderItemSeeder::class,
             BarcodeSeeder::class,
             ScannableActionSeeder::class,
