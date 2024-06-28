@@ -3,6 +3,7 @@
 namespace Domain\Orders\Models;
 
 use App\Api\V1\Items\Resources\ItemResource;
+use App\Api\V1\Orders\Resources\OrderItemResource;
 use App\Shared\Traits\Scannable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ItemFactory;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 use Support\Contracts\ResourcableModel;
 
@@ -81,15 +83,24 @@ class Item extends Model implements ResourcableModel, ScannableModel
         return $this->belongsToMany(Process::class);
     }
 
+    public function getOrderItem(int $orderId)
+    {
+        return $this->orderItems()->find($orderId);
+    }
+
     public function getCompanyId(): int
     {
         return $this->company_id;
     }
 
-    public function toResource(array $parameters): ItemResource
+    public function toResource(array $parameters): JsonResource
     {
         $this->loadMissing('storageLocations');
 
-        return new ItemResource($this, $parameters);
+        if (isset($parameters['order_id'])) {
+            return new OrderItemResource($this->getOrderItem($parameters['order_id']));
+        }
+
+        return new ItemResource($this);
     }
 }

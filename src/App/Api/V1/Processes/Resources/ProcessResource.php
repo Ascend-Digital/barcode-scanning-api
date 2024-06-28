@@ -16,11 +16,12 @@ class ProcessResource extends ScannableResource
             'type' => 'Process',
             'name' => $this->name,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'actions' => ScannableActionResource::collection($this->actions(
+            'actions' => ScannableActionResource::collection($this->resource->actions(
                 [
                     'orderItem' => $this->parameters['order_item_id'] ?? null,
                     'process' => $this->id,
-                ]
+                ],
+                'performProcessOnOrderItem'
             )),
         ];
     }

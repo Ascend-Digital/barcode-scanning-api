@@ -34,13 +34,16 @@ it('picks an item', function () {
     ])->create();
 
     $response = $this
-        ->postJson(route('api.v1.orders.storage-locations.items.pick', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $pickedQuantity]))
+        ->postJson(route('api.v1.storage-locations.order-items.pick', ['orderItem' => $orderItem, 'storageLocation' => $storageLocation, 'quantity' => $pickedQuantity]))
         ->assertOk()
         ->assertJson(fn (AssertableJson $json) => $json
             ->where('data.type', 'OrderItem')
             ->where('data.order_id', $orderItem->order_id)
             ->where('data.item_id', $orderItem->item_id)
+            ->where('data.is_picked', true)
         );
+
+    $orderItem->refresh();
 
     $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 
@@ -69,13 +72,13 @@ it('throws an exception if an attempt is made to pick more items than are availa
         $item, ['quantity' => $currentQuantity]
     )->create();
 
-    OrderItem::factory([
+    $orderItem = OrderItem::factory([
         'order_id' => $order->id,
         'item_id' => $item->id,
     ])->create();
 
     $this
-        ->postJson(route('api.v1.orders.storage-locations.items.pick', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $pickedQuantity]))
+        ->postJson(route('api.v1.storage-locations.order-items.pick', ['orderItem' => $orderItem, 'storageLocation' => $storageLocation, 'quantity' => $pickedQuantity]))
         ->assertUnprocessable();
 
     $this->assertDatabaseHas(
@@ -91,6 +94,9 @@ it('throws an exception if an attempt is made to pick more items than are availa
         ]
     );
 });
+
+it('cannot pick an order item which has already been picked')->todo();
+it('throws an exception if an attempt is made to pick an item from a storage location it does not exist in')->todo();
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(

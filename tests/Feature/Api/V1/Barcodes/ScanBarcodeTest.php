@@ -80,11 +80,13 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
         'endpoint' => 'api.v1.order-items.processes',
         'method' => 'POST',
         'expected_parameter_count' => 2,
+        'key' => 'performProcessOnOrderItem',
     ])->create();
 
     ScannableAction::factory([
         'owner_type' => 'process',
         'endpoint' => 'i-do-not-exist',
+        'key' => 'key-2',
     ])->create();
 
     $process = Process::factory()->create();
@@ -116,6 +118,8 @@ it('returns the correct actions when a barcode is scanned, skipping any where th
         ->assertOk()
         ->assertJsonPath('data.actions', $expectedActionCollection);
 });
+
+it('returns the correct actions for picking and placing, depending on whether an order item has already been picked or placed')->todo();
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(

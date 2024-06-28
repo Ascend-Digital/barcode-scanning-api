@@ -17,20 +17,13 @@ class PlaceOrderItemController
         PlaceItemRequest $placeItemRequest,
         AddItemToStorageLocation $addItemToStorageLocation,
         UpdateItemQuantity $updateItemQuantity,
-        Order $order,
         StorageLocation $storageLocation,
-        Item $item): OrderItemResource
+        OrderItem $orderItem): OrderItemResource
     {
         $quantity = $placeItemRequest->validated('quantity');
-        $itemInStorage = $storageLocation->items()->find($item->id);
+        $item = $orderItem->item;
 
-        /**
-         * @var $orderItem OrderItem
-         */
-        $orderItem = OrderItem::with('order', 'item')
-            ->where('order_id', $order->id)
-            ->where('item_id', $item->id)
-            ->sole();
+        $itemInStorage = $storageLocation->items()->find($item->id);
 
         // TODO use DTOs
         if (! $itemInStorage) {
@@ -38,6 +31,8 @@ class PlaceOrderItemController
         } else {
             $updateItemQuantity->execute($storageLocation, $item, $quantity, $itemInStorage->pivot->quantity);
         }
+
+        // TODO mark order item as placed
 
         return new OrderItemResource($orderItem);
 

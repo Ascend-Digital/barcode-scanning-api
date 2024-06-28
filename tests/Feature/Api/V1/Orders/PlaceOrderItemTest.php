@@ -34,13 +34,15 @@ it('updates an item quantity correctly', function () {
     ])->create();
 
     $response = $this
-        ->postJson(route('api.v1.orders.storage-locations.items.place', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $addedQuantity]))
+        ->postJson(route('api.v1.storage-locations.order-items.place', ['orderItem' => $orderItem, 'storageLocation' => $storageLocation, 'quantity' => $addedQuantity]))
         ->assertOk()
         ->assertJson(fn (AssertableJson $json) => $json
             ->where('data.type', 'OrderItem')
             ->where('data.order_id', $orderItem->order_id)
             ->where('data.item_id', $orderItem->item_id)
         );
+
+    $orderItem->refresh();
 
     $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 
@@ -74,13 +76,15 @@ it('places an item which does not already exist in a storage location', function
     ])->create();
 
     $response = $this
-        ->postJson(route('api.v1.orders.storage-locations.items.place', ['order' => $order, 'storageLocation' => $storageLocation, 'item' => $item, 'quantity' => $addedQuantity]))
+        ->postJson(route('api.v1.storage-locations.order-items.place', ['orderItem' => $orderItem, 'storageLocation' => $storageLocation, 'quantity' => $addedQuantity]))
         ->assertOk()
         ->assertJson(fn (AssertableJson $json) => $json
             ->where('data.type', 'OrderItem')
             ->where('data.order_id', $orderItem->order_id)
             ->where('data.item_id', $orderItem->item_id)
         );
+
+    $orderItem->refresh();
 
     $this->assertJsonResponseContent(OrderItemResource::make($orderItem), $response);
 
@@ -99,6 +103,7 @@ it('places an item which does not already exist in a storage location', function
 });
 
 it('throws an exception if an item cannot be placed in a storage location')->todo();
+it('cannot place an order item which has already been picked')->todo();
 
 it('uses validation', function () {
     $this->assertActionUsesFormRequest(
