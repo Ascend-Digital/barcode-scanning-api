@@ -19,7 +19,7 @@ class WarehouseSeeder extends Seeder
             Warehouse::factory()
                 ->hasWorkstations()
                 ->has(StorageLocation::factory()
-                    ->hasAttached($items->random(200),
+                    ->hasAttached($items->where('company_id', $company->id)->random(25),
                         ['quantity' => rand(1, 400)])
                 )
                 ->recycle($company)

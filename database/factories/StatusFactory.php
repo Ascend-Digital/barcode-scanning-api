@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use Domain\Companies\Models\Company;
 use Domain\Statuses\Models\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +13,6 @@ class StatusFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'company_id' => Company::factory(),
         ];
     }
 }
